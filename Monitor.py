@@ -1,7 +1,7 @@
-class monitor():
+class Monitor():
 
     def __init__(self, tipo, pasta):
-        self.data_inicial = date_texto2(datetime.date.today())
+        self.initial_date = date_texto2(datetime.date.today())
         self.edicao_1 = 1
         self.edicao_2 = 1
         self.datas = {}
@@ -41,7 +41,7 @@ class monitor():
 
     def calcular_complitude(self):
         um_dia = datetime.timedelta(days=1)
-        dia = texto_date(self.data_inicial)
+        dia = texto_date(self.initial_date)
         amanha = datetime.date.today() + um_dia
         calculados = 0
         total = 0
@@ -61,7 +61,7 @@ class monitor():
 
 
     def alterar_data(self, data):
-        self.data_inicial = data
+        self.initial_date = data
         self.salvar()
 
 
@@ -163,7 +163,7 @@ class monitor():
     def atualizar_por_data(self, buscador):
 
         um_dia = datetime.timedelta(days=1)
-        dia = texto_date(self.data_inicial)
+        dia = texto_date(self.initial_date)
         amanha = datetime.date.today() + um_dia
 
         while dia < amanha:

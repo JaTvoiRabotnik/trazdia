@@ -1,4 +1,4 @@
-class atualizador(Thread):
+class Atualizador(Thread):
 
     def __init__(self, funcao, intervalo=1, uma_vez=False, arg=None):
         Thread.__init__(self)

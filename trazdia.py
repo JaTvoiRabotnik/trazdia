@@ -26,6 +26,11 @@ import datetime
 import pickle
 from threading import Thread
 import time
+from pydoc import locate
+
+from monitor import Monitor
+from journal import Journal
+from buscador import Buscador
 
 
 LOGS = []
@@ -93,23 +98,20 @@ except:
 
 
 if __name__ == "__main__":
-    B = buscador("Oo")
-    B.carregar()
+    b = Buscador("Oo")
+    b.carregar()
 
-    M = monitor(Diario_Oficial_Uniao, "jornais")
-    M = M.carregar()
+    journals = ['Diario_Oficial_Uniao', \
+                'Diario_Oficial_SP', \
+                'Diario_da_Justica', \
+                'Diario_TRF', \
+                'Diario_Justica_do_MT', \
+                'Diario_Oficial_do_MT']
 
-    M2 = monitor(Diario_Oficial_SP, "jornais")
-    M2 = M2.carregar()
+    monitors = []
 
-    M3 = monitor(Diario_da_Justica, "jornais")
-    M3 = M3.carregar()
-
-    M4 = monitor(Diario_TRF, "jornais")
-    M4 = M4.carregar()
-
-    M5 = monitor(Diario_Justica_do_MT, "jornais")
-    M5 = M5.carregar()
-
-    M6 = monitor(Diario_Oficial_do_MT, "jornais")
-    M6 = M6.carregar()
+    for journal in journals:
+        # Load class reflectively:
+        journal_class = locate('journal.' + journal)
+        m = Monitor(journal_class, "jornais")
+        m = m.carregar()

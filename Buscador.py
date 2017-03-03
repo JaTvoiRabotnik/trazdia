@@ -1,5 +1,5 @@
 # Realiza a pesquisa
-class buscador():
+class Buscador():
 
     def __init__(self, nome):
         self.palavras_procuradas = []

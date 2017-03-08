@@ -98,8 +98,6 @@ except:
 
 
 if __name__ == "__main__":
-    b = Buscador("Oo")
-    b.carregar()
 
     journals = ['Diario_Oficial_Uniao', \
                 'Diario_Oficial_SP', \

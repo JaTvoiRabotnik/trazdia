@@ -1,17 +1,17 @@
 {
   "test": {
     "driver": "sqlite3",
-    "filename": "/var/tmp/keyword-wrangler.test.sqlite"
+    "filename": "/var/tmp/trazdia.test.sqlite"
   },
   "dev": {
     "driver": "sqlite3",
-    "filename": "/var/tmp/keyword-wrangler.dev.sqlite"
+    "filename": "/var/tmp/trazdia.dev.sqlite"
   },
   "production": {
     "driver": "mysql",
     "host": "localhost",
     "user": "root",
     "password": "root",
-    "database": "keyword_wrangler"
+    "database": "trazdia"
   }
 }

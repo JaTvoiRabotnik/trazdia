@@ -16,10 +16,8 @@ class Monitor():
         # Usado para parar durante uma atualização
         self.para = False
 
-        try:
-            os.mkdir(os.path.join(self.pasta, self.tipo_jornal.nome))
-        except:
-            pass
+        # TODO Aqui tinha a criacao de um arquivo. Vamos manter
+        # tudo numa base de dados ao invez.
 
 
     def parar(self):
@@ -107,15 +105,15 @@ class Monitor():
         return lista
 
 
-    def atualizar(self, buscador):
+    def atualizar(self):
         self.para = False
         if self.tipo_jornal.por_data:
-            self.atualizar_por_data(buscador)
+            self.atualizar_por_data()
         else:
-            self.atualizar_por_edicao(buscador)
+            self.atualizar_por_edicao()
 
 
-    def atualizar_por_edicao(self, buscador):
+    def atualizar_por_edicao(self):
         edicao_atual = self.edicao_1
         while edicao_atual <= self.edicao_2:
             if self.para:
@@ -125,31 +123,13 @@ class Monitor():
             # Verifica se já não foi analisado o jornal da data
             if not journal_edition:
                 documentar("Processando edicao: " + str(edicao_atual))
-                diretorio = os.path.join(self.pasta, self.tipo_jornal.nome)
-                try:
-                    os.mkdir(diretorio)
-                except:
-                    pass
                 journal = self.tipo_jornal(edicao_atual, diretorio, self)
                 print "Baixar!"
-                ocorrencias = journal.executar(buscador)
+                ocorrencias = journal.executar()
                 if self.para:
                     return None
                 if len(ocorrencias) != 0:
                     self.achados.append((edicao_atual, ocorrencias))
-                # Remove os arquivos e diretório caso o usuário queira,
-                # ou caso aquele dia não teve jornal ( tamanho da primeira seção
-                # provavelmente é 0 nesse caso )
-                if (self.guardar == "nenhum") or (journal.tam_secoes[0] == 0):
-                    journal.remover()
-                    os.rmdir(diretorio)
-                elif self.guardar == "achados":
-                    if len(ocorrencias) == 0:
-                        journal.remover()
-                        os.rmdir(diretorio)
-                    else:
-                        journal.remover_pdfs_nao_usados()
-                        journal.remover_txts_nao_usados()
                 self.datas[edicao_atual] = "a"
                 self.salvar()
 

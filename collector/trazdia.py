@@ -36,29 +36,31 @@ def main(argv):
 
     # Default parameters
     call_function = ""
+    journal = ""
+    edition = ""
 
     try:
-        opts, args = getopt.getopt(argv, "hc:", ["help", "call="])
+        opts, args = getopt.getopt(argv, "hc:j:e:", ["help", "call=", "journal=", "edition="])
     except getopt.GetoptError:
-        usage()
         sys.exit(2)
     for opt, arg in opts:
         if opt in ("-h", "--help"):
-            usage()
             sys.exit()
         elif opt in ("-c", "--call"):
             call_function = arg
+        elif opt in ("-j", "--journal"):
+            journal = arg
+        elif opt in ("-e", "--edition"):
+            edition = arg
 
     if not opts:
-        usage()
         sys.exit(2)
 
     if call_function == "":
         print("calling function cannot be empty.")
-        usage()
         sys.exit(2)
 
-    return call_function
+    return call_function, journal, edition
 
 
 def date_texto(data):
@@ -98,9 +100,8 @@ except:
 
 if __name__ == "__main__":
 
-    call_function, journal = main(sys.argv[1:])
+    call_function, journal, edition_id = main(sys.argv[1:])
 
     # Load class reflectively:
     journal_class = locate('journal.' + journal)
-    m = Monitor(journal_class, "jornais")
-    m = m.carregar()
+    journal = journal_class(edition_id)

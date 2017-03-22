@@ -2,23 +2,29 @@
   "name": "trazdia",
   "version": "0.0.1",
   "description": "A proxy for Brazilian government daily gazzettes",
-  "main": "src/backend/index.js",
+  "repository": "github.com/JaTvoiRabotnik/trazdia",
+  "private": true,
   "scripts": {
+    "start": "node ./bin/www",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Marco Zanchi",
   "dependencies": {
     "async": "^2.1.4",
-    "bower": "^1.8.0",
     "db-migrate": "^0.9.26",
     "mysql": "^2.12.0",
     "node-dbi": "^0.7.1",
-    "percolator": "^1.5.0"
+    "body-parser": "~1.16.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.0",
+    "express": "~4.14.1",
+    "morgan": "~1.7.0",
+    "pug": "~2.0.0-beta10",
+    "serve-favicon": "~2.3.2"
   },
   "devDependencies": {
     "jasmine-node": "^1.14.5",
     "request": "^2.79.0",
     "sqlite3": "^3.1.8"
-  }
+}
 }

@@ -1,0 +1,9 @@
+language: node_js
+node_js:
+  - '0.10'
+  - '0.8'
+
+before_script:
+  - cp test/config.js.dist test/config.js
+  - mysql -e 'create database node_dbi_test;'
+  - psql -c 'create database node_dbi_test;' -U postgres

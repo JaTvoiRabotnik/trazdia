@@ -9,7 +9,7 @@ var Server = function(port) {
   server.route('/getSaoPaulo',
   {
     GET: function (req, res) {
-      var process = spawn('python',["../../collector/trazdia.py", 'getJournal', 'Diario_Oficial_SP']);
+      var process = spawn('python',["../../collector/trazdia.py", 'Diario_Oficial_SP']);
 
       process.stdout.on('data', function (data){
         res.collection(data).send();

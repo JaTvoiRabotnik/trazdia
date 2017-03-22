@@ -1,0 +1,9 @@
+
+/test/config.js
+
+/.idea/
+/.vagrant/
+
+/db/
+.*.swp
+node_modules/

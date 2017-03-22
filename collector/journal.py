@@ -16,11 +16,11 @@ class Journal():
 
 
 
-    def baixar_pagina(self, num_secao, num_pagina, data, nome_arquivo):
+    def baixar_pagina(self, num_secao, num_pagina, data):
         pass
 
 
-    def obter_num_paginas_secao(self, num_secao, data, nome_arquivo):
+    def obter_num_paginas_secao(self, num_secao, data):
         pass
 
 
@@ -35,14 +35,13 @@ class Journal():
     def baixar(self):
         for num_secao in range(1, self.numero_de_secoes + 1):
             for num_pagina in range(1, self.tam_secoes[num_secao - 1] + 1):
-                return self.baixar_pagina(num_secao, num_pagina, self.date, nome)
+                return self.baixar_pagina(num_secao, num_pagina, self.date)
 
 
     # Executa as operacoes necessarias para baixar e processar um jornal
     def executar(self):
         self.obter_info()
-        self.baixar()
-        return self.ocorrencias
+        return self.baixar()
 
 
 ###############################################################################
@@ -52,7 +51,7 @@ class Diario_da_Justica(Journal):
     numero_de_secoes = 1
 
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
-    def baixar_pagina(self, num_secao, num_pagina, data, nome_arquivo):
+    def baixar_pagina(self, num_secao, num_pagina, data):
         dados_jornal = "jornal=" + "126" + "&pagina=" + str(num_pagina)\
                         + "&data=" + data
 
@@ -61,13 +60,13 @@ class Diario_da_Justica(Journal):
         pagina_referencia = "http://www.in.gov.br/imprensa/visualiza/index.jsp?"\
                         + dados_jornal
 
-        referencia = request.get(pagina_referencia)
+        referencia = requests.get(pagina_referencia)
 
         # Essa e a pagina com o pdf desejado
         pagina_jornal = "http://www.in.gov.br/imprensa/servlet/INPDFViewer?"\
                         + dados_jornal + "&captchafield=firistAccess"
 
-        resultado = request.get(pagina_jornal, cookies = referencia.cookies)
+        resultado = requests.get(pagina_jornal, cookies = referencia.cookies)
         return resultado.content
 
 
@@ -78,8 +77,9 @@ class Diario_da_Justica(Journal):
         pagina_referencia = \
             "http://www.in.gov.br/imprensa/visualiza/index.jsp?" + dados_jornal
 
-        referencia = request.get(pagina_referencia)
+        referencia = requests.get(pagina_referencia)
         texto = referencia.text
+        print(pagina_referencia)
 
         # Extrai do arquivo baixado a parte q fala sobre o numero de paginas
         x1, x2, x3 = texto.partition("totalArquivos=")
@@ -89,6 +89,7 @@ class Diario_da_Justica(Journal):
         else:
             num_paginas_secao = 0
 
+        print(int(num_paginas_secao))
         return int(num_paginas_secao)
 
 
@@ -100,7 +101,7 @@ class Diario_Justica_do_MT(Journal):
     por_data = False
 
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
-    def baixar_pagina(self, num_secao, num_pagina, data, nome_arquivo):
+    def baixar_pagina(self, num_secao, num_pagina, data):
 
         edicao = data
         ano = 2007
@@ -111,7 +112,7 @@ class Diario_Justica_do_MT(Journal):
             pagina_jornal = 'http://dje.tj.mt.gov.br/PDFDJE/'\
                             + str(edicao) + '-' + str(ano) + '.pdf'
 
-            resultado = request(pagina_jornal)
+            resultado = requests(pagina_jornal)
 
             # SO FUNCIONA PARA ANO <= 2020 =P (BUG DO VINTENIO)
             # Como o mundo acaba em 2012, da nada nao
@@ -136,10 +137,10 @@ class Diario_Oficial_do_MT(Diario_Justica_do_MT):
     por_data = False
 
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
-    def baixar_pagina(self, num_secao, num_pagina, data, nome_arquivo):
+    def baixar_pagina(self, num_secao, num_pagina, data):
         edicao = data
         pagina_jornal = "http://www.iomat.mt.gov.br/ler_pdf.php?download=ok&edi_id=" + str(edicao) + "&page=0"
-        resultado = request.get(pagina_jornal)
+        resultado = requests.get(pagina_jornal)
         return resultado.content
 
 
@@ -154,7 +155,7 @@ class Diario_Oficial_SP(Journal):
             "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
 
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
-    def baixar_pagina(self, num_secao, num_pagina, data, nome_arquivo):
+    def baixar_pagina(self, num_secao, num_pagina, data):
 
         # Converte o numero da secao para um dos nomes das secoes
         secao = self.secoes[num_secao - 1]
@@ -167,7 +168,7 @@ class Diario_Oficial_SP(Journal):
             + ano + '/' + mes + '/' + dia + '/' + secao + '/pdf/pg_'\
             + str(num_pagina).zfill(4) + '.pdf'
 
-        resultado = request.get(pagina_jornal)
+        resultado = requests.get(pagina_jornal)
         return resultado.content
 
 
@@ -179,7 +180,7 @@ class Diario_Oficial_SP(Journal):
             + data + "&cad=" + str(num_secao + 3) + "&cedic=" + ano + mes + dia\
             + "&pg=1&acao=&edicao=&secao="
 
-        resultado = request.get(pagina_referencia)
+        resultado = requests.get(pagina_referencia)
         texto = resultado.text
 
         x1, x2, x3 = texto.partition('<span class="tx_10 tx_bold">I de ')
@@ -199,7 +200,7 @@ class Diario_Oficial_Uniao(Journal):
     numero_de_secoes = 3
 
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
-    def baixar_pagina(self, num_secao, num_pagina, data, nome_arquivo):
+    def baixar_pagina(self, num_secao, num_pagina, data):
         dados_jornal = "jornal=" + str(num_secao) + "&pagina=" + str(num_pagina)\
                         + "&data=" + data
 
@@ -207,7 +208,7 @@ class Diario_Oficial_Uniao(Journal):
         pagina_jornal = "http://pesquisa.in.gov.br/imprensa/servlet/INPDFViewer?"\
                         + dados_jornal + "&captchafield=firistAccess"
 
-        resultado = request.get(pagina_jornal)
+        resultado = requests.get(pagina_jornal)
 
         return resultado.content
 
@@ -219,7 +220,7 @@ class Diario_Oficial_Uniao(Journal):
         pagina_referencia = \
             "http://pesquisa.in.gov.br/imprensa/jsp/visualiza/index.jsp?" + dados_jornal
 
-        resultado = request(pagina_referencia)
+        resultado = requests(pagina_referencia)
 
         texto = resultado.text
 
@@ -241,7 +242,7 @@ class Diario_TRF(Journal):
     numero_de_secoes = 1
 
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
-    def baixar_pagina(self, num_secao, num_pagina, data, nome_arquivo):
+    def baixar_pagina(self, num_secao, num_pagina, data):
         dados_jornal = "jornal=" + "20" + "&pagina=" + str(num_pagina)\
                         + "&data=" + data
 
@@ -250,13 +251,13 @@ class Diario_TRF(Journal):
         pagina_referencia = \
             "http://www.in.gov.br/imprensa/visualiza/index.jsp?" + dados_jornal
 
-        referencia = request.get(pagina_referencia)
+        referencia = requests.get(pagina_referencia)
 
         # Essa e a pagina com o pdf desejado
         pagina_jornal = "http://www.in.gov.br/imprensa/servlet/INPDFViewer?"\
                         + dados_jornal + "&captchafield=firistAccess"
 
-        resultado = request.get(pagina_jornal, cookies = referencia.cookies)
+        resultado = requests.get(pagina_jornal, cookies = referencia.cookies)
 
         return resultado.content
 
@@ -268,7 +269,7 @@ class Diario_TRF(Journal):
         pagina_referencia = \
             "http://www.in.gov.br/imprensa/visualiza/index.jsp?" + dados_jornal
 
-        resultado = request.get(pagina_referencia)
+        resultado = requests.get(pagina_referencia)
 
         texto = resultado.text
 

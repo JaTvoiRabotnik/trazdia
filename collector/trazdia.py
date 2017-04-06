@@ -35,32 +35,26 @@ from journal import Journal
 def main(argv):
 
     # Default parameters
-    call_function = ""
     journal = ""
     edition = ""
 
     try:
-        opts, args = getopt.getopt(argv, "hc:j:e:", ["help", "call=", "journal=", "edition="])
+        opts, args = getopt.getopt(argv, "hj:e:", ["help", "journal=", "edition="])
     except getopt.GetoptError:
         sys.exit(2)
     for opt, arg in opts:
         if opt in ("-h", "--help"):
             sys.exit()
-        elif opt in ("-c", "--call"):
-            call_function = arg
         elif opt in ("-j", "--journal"):
             journal = arg
         elif opt in ("-e", "--edition"):
             edition = arg
 
     if not opts:
+        print("must enter mandatory options")
         sys.exit(2)
 
-    if call_function == "":
-        print("calling function cannot be empty.")
-        sys.exit(2)
-
-    return call_function, journal, edition
+    return journal, edition
 
 
 def date_texto(data):
@@ -100,8 +94,10 @@ except:
 
 if __name__ == "__main__":
 
-    call_function, journal, edition_id = main(sys.argv[1:])
-
+    journal, edition_id = main(sys.argv[1:])
+    print("journal = ", journal)
+    print("edition ID = ", edition_id)
     # Load class reflectively:
     journal_class = locate('journal.' + journal)
     journal = journal_class(edition_id)
+    print(journal.executar())

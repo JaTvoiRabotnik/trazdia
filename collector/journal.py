@@ -1,4 +1,5 @@
 import requests
+import logging
 
 class Journal():
 
@@ -147,6 +148,8 @@ class Diario_Oficial_do_MT(Diario_Justica_do_MT):
 ###############################################################################
 class Diario_Oficial_SP(Journal):
 
+    logger = logging.getLogger('django')
+
     nome = "Diario_Oficial_SP"
     numero_de_secoes = 2
 
@@ -160,7 +163,9 @@ class Diario_Oficial_SP(Journal):
         # Converte o numero da secao para um dos nomes das secoes
         secao = self.secoes[num_secao - 1]
 
-        dia, mes, ano = data.split("/")
+        ano = data[0:4]
+        mes = data[4:6]
+        dia = data[6:8]
         mes = self.meses[int(mes) - 1]
 
         pagina_jornal = \
@@ -169,12 +174,15 @@ class Diario_Oficial_SP(Journal):
             + str(num_pagina).zfill(4) + '.pdf'
 
         resultado = requests.get(pagina_jornal)
+        logger.info(pagina_jornal)
         return resultado.content
 
 
     def obter_num_paginas_secao(self, num_secao, data):
 
-        dia, mes, ano = data.split("/")
+        ano = data[0:4]
+        mes = data[4:6]
+        dia = data[6:8]
         pagina_referencia = \
             "http://diariooficial.imprensaoficial.com.br/nav_v4/header.asp?txtData="\
             + data + "&cad=" + str(num_secao + 3) + "&cedic=" + ano + mes + dia\

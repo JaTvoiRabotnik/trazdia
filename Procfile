@@ -1,1 +1,1 @@
-web: gunicorn trazdia:application --log-file -
+web: gunicorn trazdia.wsgi --log-file -

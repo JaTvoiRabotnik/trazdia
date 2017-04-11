@@ -25,7 +25,7 @@ SECRET_KEY = '9x092fk4jm(v%qvd4uh&iz38_v3i_d1crb+m$3+faj5zj!#%ua'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['young-fjord-53046.herokuapp.com']
+ALLOWED_HOSTS = ['trazdia.herokuapp.com']
 
 
 # Application definition

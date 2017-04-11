@@ -92,3 +92,10 @@ ENV/
 
 # Tokens directory
 tokens/
+
+# binaries
+bin/
+
+# other stuff
+*.pyc
+staticfiles

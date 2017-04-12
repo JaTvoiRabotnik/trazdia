@@ -11,6 +11,13 @@ https://docs.djangoproject.com/en/1.10/ref/settings/
 """
 
 import os
+import socket
+
+# Decide whether we are in production or not
+if socket.gethostname().startswith('trazdia'):
+    DEVHOST = False
+else:
+    DEVHOST = True
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,14 +30,18 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9x092fk4jm(v%qvd4uh&iz38_v3i_d1crb+m$3+faj5zj!#%ua'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-
-ALLOWED_HOSTS = ['trazdia.herokuapp.com']
+if DEVHOST:
+    DEBUG = True
+    ALLOWED_HOSTS = []
+else:
+    DEBUG = False
+    ALLOWED_HOSTS = ['trazdia.herokuapp.com']
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'behave_django',
     'collector.apps.CollectorConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -74,26 +85,23 @@ WSGI_APPLICATION = 'trazdia.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
-DATABASES = {
-    'development': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    },
-
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'trazdia',
-        'USER': 'test',
-        'PASSWORD': 'test2',
-        'HOST': 'localhost',
-        'PORT': '',
+if DEVHOST:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        }
     }
-}
-
-# Update database configuration with $DATABASE_URL. For Heroku deployment only
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+        }
+    }
+    # Update database configuration with $DATABASE_URL. For Heroku deployment only
+    import dj_database_url
+    db_from_env = dj_database_url.config(conn_max_age=500)
+    DATABASES['default'].update(db_from_env)
 
 
 # Password validation

@@ -30,12 +30,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '9x092fk4jm(v%qvd4uh&iz38_v3i_d1crb+m$3+faj5zj!#%ua'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-if DEVHOST:
-    DEBUG = True
-    ALLOWED_HOSTS = []
-else:
-    DEBUG = False
-    ALLOWED_HOSTS = ['trazdia.herokuapp.com']
+DEBUG = False
+
+ALLOWED_HOSTS = ['trazdia.herokuapp.com']
 
 
 # Application definition
@@ -84,24 +81,15 @@ WSGI_APPLICATION = 'trazdia.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
-
-if DEVHOST:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
     }
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-        }
-    }
-    # Update database configuration with $DATABASE_URL. For Heroku deployment only
-    import dj_database_url
-    db_from_env = dj_database_url.config(conn_max_age=500)
-    DATABASES['default'].update(db_from_env)
+}
+# Update database configuration with $DATABASE_URL. For Heroku deployment only
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(db_from_env)
 
 
 # Password validation

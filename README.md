@@ -4,7 +4,7 @@
 Trazdia, o trazedor de Diarios Oficiais. Ele baixa os Diarios Oficiais brasileiros direto dos sites do governo.
 
 ### Como contribuir:
-Esse é um projeto Open Source, ou seja, toda contribuição é bem vinda. Usamos um processo de review, ou seja, ninguem pode fazer commit direto ao Master. Crie um branch e um Pull Request a ser aprovado por outro membro do projeto. Todo Pull Request deve ser adicionado a um Milestone. Igualmente os Issues. Por favor colabore para manter o projeto bem organizado, isso ajuda a manter nosso trabalho profissional, e tambem serve como treinamento de best practices.
+Esse é um projeto Open Source, toda contribuição é bem vinda. Usamos um processo de review, ou seja, ninguem pode fazer commit direto ao Master. Crie um branch e um Pull Request a ser aprovado por outro membro do projeto. Todo Pull Request deve ser adicionado a um Projeto. Igualmente os Issues. Por favor colabore para manter o projeto bem organizado, isso ajuda a manter nosso trabalho profissional, e tambem serve como treinamento de best practices.
 
 **Instruções:**
 *Recomendamos desenvolver em um sistema Linux. Se tua máquina é Windows, instale um VM Ubuntu*
@@ -20,4 +20,4 @@ Toda vez que você criar um pull request no repositório da okfn-brasil, um job 
 Uma vez que o pull request foi aprovado e fundido com o Master, outro teste vai rodar e se tudo correr bem, [automaticamente implantado no Heroku](https://dashboard.heroku.com/apps/trazdia "Heroku build page")
 
 ### Linguagem:
-Por favor comunique-se em Português na descrição dos Issues, Milestones, etc. Mas dentro do código, incluindo testes e mensagens de commit, use o Inglês. A razão disso é que o aplicativo tem que ser auto-documentável e acessível internacionalmente, e o Inglês é alíngua franca da programação.
+Por favor comunique-se em Português na descrição dos Issues, Milestones, etc. Mas dentro do código, incluindo testes e mensagens de commit, use o Inglês. A razão disso é que o aplicativo tem que ser auto-documentável e acessível internacionalmente, e o Inglês é a língua franca da programação.

@@ -15,7 +15,7 @@ Esse é um projeto Open Source, ou seja, toda contribuição é bem vinda. Usamo
 ..* ative o virtual environment: `source venv/bin/activate`
 ..* instale as dependências: `pip install -r requirements.txt`
 
-Toda vez que você criar um pull request no repositório da okfn-brasil, um job no Travis vai começar e rodar todos os testes. Acompanhe o resultado direto na página: [Travis pull requests](https://travis-ci.org/okfn-brasil/trazdia/pull_requests).
+Toda vez que você criar um pull request no repositório da okfn-brasil, um job no Travis vai começar e rodar todos os testes. Acompanhe o resultado direto na página: [Travis pull requests](https://travis-ci.org/okfn-brasil/trazdia/pull_requests). Um sistema [também será criado no Heroku](https://dashboard.heroku.com/apps/trazdia-pr-1) (cada pull request cria um deploy, sempre no padrão "trazdia-pr-#"), que você pode conectar pra verfificar manualmente se está functionando direitinho. Esse app será deletado automaticamente depois de 5 dias.
 
 Uma vez que o pull reuest foi aprovado e fundido com o Master, outro teste vai rodar e se tudo correr bem, [automaticamente implantado no Heroku](https://dashboard.heroku.com/apps/trazdia "Heroku build page")
 

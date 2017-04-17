@@ -36,7 +36,7 @@ class Journal():
         return self.baixar()
 
     # Get JSON with list of links to pages of a given DO
-    def return_index(self, date):
+    def return_index(self):
         pass
 
 
@@ -188,19 +188,19 @@ class Diario_Oficial_SP(Journal):
         return int(num_paginas_secao) + 4
 
 
-    def return_index(self, date):
+    def return_index(self):
         logger = logging.getLogger('trazdia')
-        year = date[0:4]
-        month = date[4:6]
-        day = date[6:8]
-        reverse_date = year + '/' + month + '/' + day
+        year = self.date[0:4]
+        month = self.date[4:6]
+        day = self.date[6:8]
+        reverse_date = day + '/' + month + '/' + year
         index_page = \
             "http://diariooficial.imprensaoficial.com.br/nav_v4/header.asp?txtData=" \
             + reverse_date + "&cad=" + str(4) + "&cedic=" + year + month + day \
             + "&pg=1&acao=&edicao=&secao="
         logger.info(index_page)
         result = requests.get(index_page)
-        return result.text
+        return index_page
 
 
 ###############################################################################

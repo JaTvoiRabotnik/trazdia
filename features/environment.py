@@ -1,8 +1,8 @@
-from splinter.browser import Browser
+from selenium import webdriver
 
 
 def before_all(context):
-    context.browser = Browser()
+    context.browser = webdriver.PhantomJS()
     context.browser.implicitly_wait(1)
     context.server_url = 'http://localhost:8000'
 

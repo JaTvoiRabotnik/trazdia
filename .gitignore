@@ -97,8 +97,7 @@ tokens/
 bin/
 
 # IDE
-.idea/
+.idea/*
 
 # other stuff
-*.pyc
-staticfiles
+selenium/

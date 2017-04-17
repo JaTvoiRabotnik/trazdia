@@ -12,11 +12,10 @@ def document(request, document_id):
     response = "Voce esta vendo a materia %s."
     return HttpResponse(response % document_id)
 
-def journal_by_edition(request, journal_id, edition_id):
+def journal_by_edition(request, journal_id, date):
     journal_class = locate('collector.journal.' + journal_id)
-    journal = journal_class(edition_id)
+    journal = journal_class(date)
     content = journal.executar()
-    response = HttpResponse(content_type='application/pdf')
-    response['Content-Disposition'] = 'filename="diario.pdf"'
+    response = HttpResponse(content_type='application/json')
     response.write(content)
     return response

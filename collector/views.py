@@ -19,6 +19,6 @@ def journal_by_date_and_section(request, journal_id, date, section):
     journal_class = locate('collector.journal.' + journal_id)
     journal = journal_class(date)
     content = journal.return_index(section)
-    response = HttpResponse(content_type='application/xml')
+    response = HttpResponse(content_type='application/json')
     response.write(content)
     return response

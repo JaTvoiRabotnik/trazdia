@@ -1,5 +1,7 @@
 import requests
 import logging
+from bs4 import BeautifulSoup
+import json
 
 
 class Journal():
@@ -36,7 +38,7 @@ class Journal():
         return self.baixar()
 
     # Get JSON with list of links to pages of a given DO
-    def return_index(self):
+    def return_index(self, section):
         pass
 
     def get_month_PT(self, month):
@@ -50,9 +52,9 @@ class Journal():
             7: "Julho",
             8: "Agosto",
             9: "Setembro",
-            10:"Outubro",
-            11:"Novembro",
-            12:"Dezembro"
+            10: "Outubro",
+            11: "Novembro",
+            12: "Dezembro"
         }
         return switcher.get(month, "nothing")
 
@@ -155,6 +157,7 @@ class Diario_Oficial_do_MT(Diario_Justica_do_MT):
 class Diario_Oficial_SP(Journal):
     logger = logging.getLogger(__name__)
     nome = "Diario_Oficial_SP"
+    base_link = ''
     numero_de_secoes = 2
 
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
@@ -201,6 +204,32 @@ class Diario_Oficial_SP(Journal):
         return int(num_paginas_secao) + 4
 
 
+    def link_for_id(self, id):
+        return self.base_link + '/pdf/pg_' + str(id).zfill(4) + '.pdf'
+
+
+    def translate_to_json(self, content, section):
+        soup = BeautifulSoup(content, "xml")
+        section_tag = soup.CADERNO
+        offset = int(section_tag['pageditoriais'])
+        dict_output = {'journal': self.nome,
+                       'section': section,
+                       'date': section_tag['ano'] + section_tag['mes'] + section_tag['dia'],
+                       'pages': section_tag['paginas'],
+                       'editorialpages': section_tag['pageditoriais']}
+        group_tags = section_tag.find_all('GRUPO')
+        groups = {}
+        for group_tag in group_tags:
+            subsections = {}
+            subsection_tags = group_tag.find_all('SECAO')
+            for subsection_tag in subsection_tags:
+                id = int(subsection_tag['inicio']) + offset
+                subsections[subsection_tag['nome']] = self.link_for_id(id)
+            groups[group_tag['nome']] = subsections
+        dict_output['groups'] = groups
+        return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': '))
+
+
     def return_index(self, section):
         logger = logging.getLogger('trazdia')
 
@@ -208,14 +237,14 @@ class Diario_Oficial_SP(Journal):
         month = self.get_month_PT(int(self.date[4:6]))
         day = self.date[6:8]
 
-        journal_index = \
-            'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
-            + year + '/' + month + '/' + day + '/' + section + '/xml/' \
-            + str(self.date) + '.xml'
+        self.base_link = 'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
+            + year + '/' + month + '/' + day + '/' + section
+        journal_index = self.base_link + '/xml/' + str(self.date) + '.xml'
 
         result = requests.get(journal_index)
         logger.info(journal_index)
-        return result.content
+        json_result = self.translate_to_json(result.content, section)
+        return json_result
 
 
 ###############################################################################

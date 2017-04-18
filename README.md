@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/JaTvoiRabotnik/trazdia.svg?branch=master)](https://travis-ci.org/JaTvoiRabotnik/trazdia)
+[![Build Status](https://travis-ci.org/okfn-brasil/trazdia.svg?branch=master)](https://travis-ci.org/okfn-brasil/trazdia)
+[![Heroku](https://heroku-badge.herokuapp.com/?app=trazdia)]
 
 # trazdia
 Trazdia, o trazedor de Diarios Oficiais. Ele baixa os Diarios Oficiais brasileiros direto dos sites do governo.

@@ -209,7 +209,7 @@ class Diario_Oficial_SP(Journal):
 
 
     def translate_to_json(self, content, section):
-        soup = BeautifulSoup(content, "xml")
+        soup = BeautifulSoup(content, "xml", from_encoding="iso-8859-1")
         section_tag = soup.CADERNO
         offset = int(section_tag['pageditoriais'])
         dict_output = {'journal': self.nome,
@@ -227,7 +227,8 @@ class Diario_Oficial_SP(Journal):
                 subsections[subsection_tag['nome']] = self.link_for_id(id)
             groups[group_tag['nome']] = subsections
         dict_output['groups'] = groups
-        return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, separators=(',', ': '))
+        return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, \
+                          separators=(',', ': ')).encode("utf-8")
 
 
     def return_index(self, section):

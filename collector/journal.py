@@ -39,6 +39,23 @@ class Journal():
     def return_index(self):
         pass
 
+    def get_month_PT(self, month):
+        switcher = {
+            1: "Janeiro",
+            2: "Fevereiro",
+            3: "Marco",
+            4: "Abril",
+            5: "Maio",
+            6: "Junho",
+            7: "Julho",
+            8: "Agosto",
+            9: "Setembro",
+            10:"Outubro",
+            11:"Novembro",
+            12:"Dezembro"
+        }
+        return switcher.get(month, "nothing")
+
 
 ###############################################################################
 class Diario_da_Justica(Journal):
@@ -140,20 +157,16 @@ class Diario_Oficial_SP(Journal):
     nome = "Diario_Oficial_SP"
     numero_de_secoes = 2
 
-    secoes = ["exec1", "exec2"]
-    meses = ["Janeiro", "Fevereiro", "Marco", "Abril", "Maio", "Junho", "Julho",
-             "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
-
     # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
     def baixar_pagina(self, num_secao, num_pagina, data):
         logger = logging.getLogger('trazdia')
         # Converte o numero da secao para um dos nomes das secoes
-        secao = self.secoes[num_secao - 1]
+        secao = self.section[num_secao - 1]
 
         ano = data[0:4]
         mes = data[4:6]
         dia = data[6:8]
-        mes = self.meses[int(mes) - 1]
+        mes = self.get_month_PT(int(mes))
 
         pagina_jornal = \
             'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
@@ -188,19 +201,21 @@ class Diario_Oficial_SP(Journal):
         return int(num_paginas_secao) + 4
 
 
-    def return_index(self):
+    def return_index(self, section):
         logger = logging.getLogger('trazdia')
+
         year = self.date[0:4]
-        month = self.date[4:6]
+        month = self.get_month_PT(int(self.date[4:6]))
         day = self.date[6:8]
-        reverse_date = day + '/' + month + '/' + year
-        index_page = \
-            "http://diariooficial.imprensaoficial.com.br/nav_v4/header.asp?txtData=" \
-            + reverse_date + "&cad=" + str(4) + "&cedic=" + year + month + day \
-            + "&pg=1&acao=&edicao=&secao="
-        logger.info(index_page)
-        result = requests.get(index_page)
-        return index_page
+
+        journal_index = \
+            'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
+            + year + '/' + month + '/' + day + '/' + section + '/xml/' \
+            + str(self.date) + '.xml'
+
+        result = requests.get(journal_index)
+        logger.info(journal_index)
+        return result.content
 
 
 ###############################################################################

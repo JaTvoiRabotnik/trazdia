@@ -99,3 +99,5 @@ bin/
 # other stuff
 *.pyc
 staticfiles
+site/
+.idea/

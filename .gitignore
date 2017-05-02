@@ -96,8 +96,11 @@ tokens/
 # binaries
 bin/
 
+# IDE
+.idea/*
+
 # other stuff
 *.pyc
 staticfiles
 site/
-.idea/
+selenium/

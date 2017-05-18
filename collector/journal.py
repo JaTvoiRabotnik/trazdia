@@ -249,6 +249,185 @@ class Diario_Oficial_SP(Journal):
 
 
 ###############################################################################
+class Diario_Oficial_RJ(Journal):
+    logger = logging.getLogger(__name__)
+    nome = "Diario_Oficial_RJ"
+    base_link = ''
+    numero_de_secoes = 2
+
+    HTMPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+                  'load_tree.php?edi_id={0}'
+    LNKPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+                  'mostrar.htm?id={1}&edi_id={0}'
+
+    # Decode an input and return utf-8 #
+    def read_hostile_text(encoded_text):
+        logger = logging.getLogger('trazdia')
+        encodings = [
+            'latin_1',
+            'utf_16',
+            'cp1250',
+            'iso-8859-1',
+        ]
+        for encoding in encodings:
+            try:
+                decoded_text = encoded_text.decode(encoding)
+                return decoded_text.encode('utf-8')
+            except UnicodeDecodeError:
+                logger.info(encoding, 'did not work. Trying another encoding for', encoded_text)
+        logger.error('Could not decode', encoded_text)
+        return None
+
+
+    def getedition(ediParam, store):
+        # Keep a dictionary of folders and documents
+        folders     = []
+        materias    = []
+
+        # http response
+        response    = requests.get(HTMPARAM.format(ediParam))
+        respList    = response.content.split('\n')
+        #respList    = open('3168_response.txt')
+
+        for row in respList:
+            # Index of a folder
+            if 'gFld(' in row:
+                fldKey      = row[0:row.find(' = ')]
+                fldVal      = read_hostile_text(row[row.find('gFld(')+5:row.find(');')] \
+                              .split(', ')[0][1:-1])
+                folders.append(dict(fldKey=fldKey, fldVal=fldVal))
+            # Index of a document
+            elif 'addChild(' in row:
+                materia     = row[row.find('([')+2:row.find('])')].split('", "')
+                matId       = materia[1][materia[1].find('?id=')+4: \
+                              materia[1].find('&edi')]
+                # TODO CAREFUL: we might have a hidden comma here, which will cause havoc on the conversion to CSV
+                matTitulo   = read_hostile_text(materia[0][1:])
+                matPaiKey   = row[0:row.find('.addChild')]
+                materias.append(dict(matPathKey=[matPaiKey],
+                                     matPathVal='',
+                                     matTitulo=matTitulo,
+                                     matId=matId,
+                                     matEdi=ediParam,
+                                     matLink=LNKPARAM.format(matId,ediParam)))
+            elif 'addChildren(' in row:
+                paiKey      = row[0:row.find('.addChildren')]
+                childVals   = row[row.find('([')+2:row.find('])')].split(',')
+                for val in childVals:
+                    for materia in materias:
+                        if materia['matPathKey'][0] == val:
+                            materia['matPathKey'].insert(0, paiKey)
+
+        for materia in materias:
+            for n,i in enumerate(materia['matPathKey']):
+                for keyVal in folders:
+                    if keyVal['fldKey'] == i:
+                        materia['matPathVal'] += keyVal['fldVal']
+                        if n < len(materia['matPathKey']) - 1:
+                            materia['matPathVal'] += ' | '
+        return materias
+
+
+    def get_edition_id_from_date(date):
+        with open('rio_dictionary.json') as data_file:
+            edition_dict = json.load(data_file)
+            return edition_dict[date]
+
+    # Baixa uma pagina de uma secao de uma data de jornal
+    def baixar_pagina(self, num_secao, num_pagina, data):
+        logger = logging.getLogger('trazdia')
+
+        ediParams = get_edition_id_from_date(data)
+        materias = []
+        for edition in ediParams:
+            materias.append(getedition(ediParam, False))
+
+        dict_output = {'journal': self.nome,
+                       'section': '',
+                       'date': data,
+                       'pages': '',
+                       'editorialpages': ''}
+        for materia in materias:
+            if matParam == materia['matId']:
+                response    = requests.get(materia['matLink'])
+                rawtext     = response.content
+                soup        = BeautifulSoup(rawtext, 'html5lib')
+                htmlfile = soup.prettify().encode('utf-8')
+
+
+        resultado = requests.get(pagina_jornal)
+        logger.info(pagina_jornal)
+        return resultado.content
+
+    def obter_num_paginas_secao(self, num_secao, data):
+        logger = logging.getLogger('trazdia')
+        ano = data[0:4]
+        mes = data[4:6]
+        dia = data[6:8]
+        reverse_date = dia + '/' + mes + '/' + ano
+        pagina_referencia = \
+            "http://diariooficial.imprensaoficial.com.br/nav_v4/header.asp?txtData=" \
+            + reverse_date + "&cad=" + str(num_secao + 3) + "&cedic=" + ano + mes + dia \
+            + "&pg=1&acao=&edicao=&secao="
+        # logger.info(pagina_referencia)
+        resultado = requests.get(pagina_referencia)
+        texto = resultado.text
+
+        x1, x2, x3 = texto.partition('<span class="tx_10 tx_bold">I de ')
+
+        if x3:
+            num_paginas_secao, x4, x5 = x3.partition('<')
+        else:
+            num_paginas_secao = -4
+
+        return int(num_paginas_secao) + 4
+
+
+    def link_for_id(self, id):
+        return self.base_link + '/pdf/pg_' + str(id).zfill(4) + '.pdf'
+
+
+    def translate_to_json(self, content, section):
+        soup = BeautifulSoup(content, "xml", from_encoding="iso-8859-1")
+        section_tag = soup.CADERNO
+        offset = int(section_tag['pageditoriais'])
+        dict_output = {'journal': self.nome,
+                       'section': section,
+                       'date': section_tag['ano'] + section_tag['mes'] + section_tag['dia'],
+                       'pages': section_tag['paginas'],
+                       'editorialpages': section_tag['pageditoriais']}
+        group_tags = section_tag.find_all('GRUPO')
+        groups = {}
+        for group_tag in group_tags:
+            subsections = {}
+            subsection_tags = group_tag.find_all('SECAO')
+            for subsection_tag in subsection_tags:
+                id = int(subsection_tag['inicio']) + offset
+                subsections[subsection_tag['nome']] = self.link_for_id(id)
+            groups[group_tag['nome']] = subsections
+        dict_output['groups'] = groups
+        return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, \
+                          separators=(',', ': ')).encode("utf-8")
+
+
+    def return_index(self, section):
+        logger = logging.getLogger('trazdia')
+
+        year = self.date[0:4]
+        month = self.get_month_PT(int(self.date[4:6]))
+        day = self.date[6:8]
+
+        self.base_link = 'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
+            + year + '/' + month + '/' + day + '/' + section
+        journal_index = self.base_link + '/xml/' + str(self.date) + '.xml'
+
+        result = requests.get(journal_index)
+        logger.info(journal_index)
+        json_result = self.translate_to_json(result.content, section)
+        return json_result
+
+
+###############################################################################
 class Diario_Oficial_Uniao(Journal):
     nome = "Diario_Oficial_Uniao"
     numero_de_secoes = 3

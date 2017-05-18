@@ -48,6 +48,37 @@
           }
         }
       }
+    },
+    "/br/sp/exec1/{journal_date}": {
+      "get": {
+        "tags": [
+          "meta data"
+        ],
+        "summary": "Get index for SP",
+        "description": "Get index of a given edition of the exec1 section of the DO of the State of SP",
+        "operationId": "list_publications",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": {
+          "name": "journal_date",
+          "in": "path",
+          "description": "date of the journal",
+          "required": "true",
+          "type": "string"
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Diario"
+              }
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {

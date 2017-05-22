@@ -14,6 +14,10 @@ class Journal():
         self.ocorrencias = {}
         self.tam_secoes = []
 
+    # Brings the whole edition for a given date, returns in JSON
+    def bring_edition(self):
+        pass
+
     def baixar_pagina(self, num_secao, num_pagina, data):
         pass
 
@@ -57,6 +61,9 @@ class Journal():
             12: "Dezembro"
         }
         return switcher.get(month, "nothing")
+
+    def read_hostile_text(self, encoded_text):
+        pass
 
 
 ###############################################################################
@@ -246,6 +253,120 @@ class Diario_Oficial_SP(Journal):
         logger.info(journal_index)
         json_result = self.translate_to_json(result.content, section)
         return json_result
+
+
+###############################################################################
+class Diario_Oficial_RJ(Journal):
+    logger = logging.getLogger(__name__)
+    nome = "Diario_Oficial_RJ"
+    base_link = ''
+    numero_de_secoes = 2
+
+
+    # Decode an input and return utf-8 #
+    def read_hostile_text(self, encoded_text):
+        logger = logging.getLogger('trazdia')
+        encodings = [
+            'latin_1',
+            'utf_16',
+            'cp1250',
+            'iso-8859-1',
+        ]
+        for encoding in encodings:
+            try:
+                decoded_text = encoded_text.decode(encoding)
+                return decoded_text.encode('utf-8')
+            except UnicodeDecodeError:
+                logger.info(encoding, 'did not work. Trying another encoding for', encoded_text)
+        logger.error('Could not decode', encoded_text)
+        return None
+
+
+    def getedition(self, ediParam):
+
+        HTMPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+                      'load_tree.php?edi_id={0}'
+        LNKPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+                      'mostrar.htm?id={0}&edi_id={1}'
+
+        # Keep a dictionary of folders and documents
+        folders     = []
+        materias    = []
+
+        # http response
+        response    = requests.get(HTMPARAM.format(ediParam))
+        respList    = response.content.split('\n')
+        #respList    = open('3168_response.txt')
+
+        for row in respList:
+            # Index of a folder
+            if 'gFld(' in row:
+                fldKey      = row[0:row.find(' = ')]
+                fldVal      = self.read_hostile_text(row[row.find('gFld(')+5:row.find(');')] \
+                              .split(', ')[0][1:-1])
+                folders.append(dict(fldKey=fldKey, fldVal=fldVal))
+            # Index of a document
+            elif 'addChild(' in row:
+                materia     = row[row.find('([')+2:row.find('])')].split('", "')
+                matId       = materia[1][materia[1].find('?id=')+4: \
+                              materia[1].find('&edi')]
+                # TODO CAREFUL: we might have a hidden comma here, which will cause havoc on the conversion to CSV
+                matTitulo   = self.read_hostile_text(materia[0][1:])
+                matPaiKey   = row[0:row.find('.addChild')]
+                materias.append(dict(matPathKey=[matPaiKey],
+                                     matPathVal='',
+                                     matTitulo=matTitulo,
+                                     matId=matId,
+                                     matEdi=ediParam,
+                                     matLink=LNKPARAM.format(matId,ediParam)))
+            elif 'addChildren(' in row:
+                paiKey      = row[0:row.find('.addChildren')]
+                childVals   = row[row.find('([')+2:row.find('])')].split(',')
+                for val in childVals:
+                    for materia in materias:
+                        if materia['matPathKey'][0] == val:
+                            materia['matPathKey'].insert(0, paiKey)
+
+        for materia in materias:
+            for n,i in enumerate(materia['matPathKey']):
+                for keyVal in folders:
+                    if keyVal['fldKey'] == i:
+                        materia['matPathVal'] += keyVal['fldVal']
+                        if n < len(materia['matPathKey']) - 1:
+                            materia['matPathVal'] += ' | '
+        return materias
+
+
+    def get_edition_id_from_date(self, date):
+        with open('rio_dictionary.json') as data_file:
+            edition_dict = json.load(data_file)
+            return edition_dict[date]
+
+
+    # Brings the whole edition for a given date, returns in JSON
+    def bring_edition(self):
+        logger = logging.getLogger('trazdia')
+
+        ediParams = self.get_edition_id_from_date(self.date)
+        raw_docs = []
+        for edition in ediParams:
+            raw_docs.append(self.getedition(edition))
+
+        # TODO enrich output with more details of section, subsection, etc.
+        dict_output = {'journal': self.nome,
+                       'date': self.date}
+        documents = []
+        for raw_doc in raw_docs[0]:
+            response    = requests.get(raw_doc['matLink'])
+            rawtext     = response.content
+            # We use BeautifulSoup to convert to utf-8
+            soup        = BeautifulSoup(rawtext, 'html5lib')
+            raw_html = soup.prettify()
+            documents.append(raw_html)
+        dict_output['documents'] = documents
+
+        return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, \
+                          separators=(',', ': '))
 
 
 ###############################################################################

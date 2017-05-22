@@ -100,4 +100,7 @@ bin/
 .idea/*
 
 # other stuff
+*.pyc
+staticfiles
+site/
 selenium/

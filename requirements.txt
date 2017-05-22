@@ -9,7 +9,6 @@ enum34==1.1.6
 factory-boy==2.8.1
 Faker==0.7.11
 gunicorn==19.7.1
-html5lib==0.999999999
 ipaddress==1.0.18
 logging==0.4.9.6
 lxml==3.7.3
@@ -22,6 +21,6 @@ python-dateutil==2.6.0
 pytz==2017.2
 requests==2.13.0
 selenium==3.3.3
+six==1.10.0
 splinter==0.7.5
-webencodings==0.5.1
 whitenoise==3.3.0

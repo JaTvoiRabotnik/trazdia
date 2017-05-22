@@ -259,13 +259,13 @@ class Diario_Oficial_RJ(Journal):
     base_link = ''
     numero_de_secoes = 2
 
-    HTMPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+    self.HTMPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
                   'load_tree.php?edi_id={0}'
-    LNKPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+    self.LNKPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
                   'mostrar.htm?id={1}&edi_id={0}'
 
     # Decode an input and return utf-8 #
-    def read_hostile_text(encoded_text):
+    def read_hostile_text(self, encoded_text):
         logger = logging.getLogger('trazdia')
         encodings = [
             'latin_1',
@@ -283,13 +283,13 @@ class Diario_Oficial_RJ(Journal):
         return None
 
 
-    def getedition(ediParam, store):
+    def getedition(self, ediParam):
         # Keep a dictionary of folders and documents
         folders     = []
         materias    = []
 
         # http response
-        response    = requests.get(HTMPARAM.format(ediParam))
+        response    = requests.get(self.HTMPARAM.format(ediParam))
         respList    = response.content.split('\n')
         #respList    = open('3168_response.txt')
 
@@ -297,7 +297,7 @@ class Diario_Oficial_RJ(Journal):
             # Index of a folder
             if 'gFld(' in row:
                 fldKey      = row[0:row.find(' = ')]
-                fldVal      = read_hostile_text(row[row.find('gFld(')+5:row.find(');')] \
+                fldVal      = self.read_hostile_text(row[row.find('gFld(')+5:row.find(');')] \
                               .split(', ')[0][1:-1])
                 folders.append(dict(fldKey=fldKey, fldVal=fldVal))
             # Index of a document
@@ -313,7 +313,7 @@ class Diario_Oficial_RJ(Journal):
                                      matTitulo=matTitulo,
                                      matId=matId,
                                      matEdi=ediParam,
-                                     matLink=LNKPARAM.format(matId,ediParam)))
+                                     matLink=self.LNKPARAM.format(matId,ediParam)))
             elif 'addChildren(' in row:
                 paiKey      = row[0:row.find('.addChildren')]
                 childVals   = row[row.find('([')+2:row.find('])')].split(',')
@@ -332,7 +332,7 @@ class Diario_Oficial_RJ(Journal):
         return materias
 
 
-    def get_edition_id_from_date(date):
+    def get_edition_id_from_date(self, date):
         with open('rio_dictionary.json') as data_file:
             edition_dict = json.load(data_file)
             return edition_dict[date]
@@ -342,10 +342,10 @@ class Diario_Oficial_RJ(Journal):
     def bring_edition(self):
         logger = logging.getLogger('trazdia')
 
-        ediParams = get_edition_id_from_date(self.date)
+        ediParams = self.get_edition_id_from_date(self.date)
         raw_docs = []
         for edition in ediParams:
-            raw_docs.append(getedition(ediParam, False))
+            raw_docs.append(self.getedition(edition))
 
         # TODO enrich output with more details of section, subsection, etc.
         dict_output = {'journal': self.nome,

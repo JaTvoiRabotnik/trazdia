@@ -62,6 +62,9 @@ class Journal():
         }
         return switcher.get(month, "nothing")
 
+    def read_hostile_text(self, encoded_text):
+        pass
+
 
 ###############################################################################
 class Diario_da_Justica(Journal):
@@ -259,10 +262,6 @@ class Diario_Oficial_RJ(Journal):
     base_link = ''
     numero_de_secoes = 2
 
-    self.HTMPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
-                  'load_tree.php?edi_id={0}'
-    self.LNKPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
-                  'mostrar.htm?id={1}&edi_id={0}'
 
     # Decode an input and return utf-8 #
     def read_hostile_text(self, encoded_text):
@@ -284,12 +283,18 @@ class Diario_Oficial_RJ(Journal):
 
 
     def getedition(self, ediParam):
+
+        HTMPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+                      'load_tree.php?edi_id={0}'
+        LNKPARAM    = 'http://doweb.rio.rj.gov.br/do/navegadorhtml/' \
+                      'mostrar.htm?id={0}&edi_id={1}'
+
         # Keep a dictionary of folders and documents
         folders     = []
         materias    = []
 
         # http response
-        response    = requests.get(self.HTMPARAM.format(ediParam))
+        response    = requests.get(HTMPARAM.format(ediParam))
         respList    = response.content.split('\n')
         #respList    = open('3168_response.txt')
 
@@ -306,14 +311,14 @@ class Diario_Oficial_RJ(Journal):
                 matId       = materia[1][materia[1].find('?id=')+4: \
                               materia[1].find('&edi')]
                 # TODO CAREFUL: we might have a hidden comma here, which will cause havoc on the conversion to CSV
-                matTitulo   = read_hostile_text(materia[0][1:])
+                matTitulo   = self.read_hostile_text(materia[0][1:])
                 matPaiKey   = row[0:row.find('.addChild')]
                 materias.append(dict(matPathKey=[matPaiKey],
                                      matPathVal='',
                                      matTitulo=matTitulo,
                                      matId=matId,
                                      matEdi=ediParam,
-                                     matLink=self.LNKPARAM.format(matId,ediParam)))
+                                     matLink=LNKPARAM.format(matId,ediParam)))
             elif 'addChildren(' in row:
                 paiKey      = row[0:row.find('.addChildren')]
                 childVals   = row[row.find('([')+2:row.find('])')].split(',')
@@ -351,17 +356,17 @@ class Diario_Oficial_RJ(Journal):
         dict_output = {'journal': self.nome,
                        'date': self.date}
         documents = []
-        for raw_doc in raw_docs:
-            response    = requests.get(materia['matLink'])
+        for raw_doc in raw_docs[0]:
+            response    = requests.get(raw_doc['matLink'])
             rawtext     = response.content
             # We use BeautifulSoup to convert to utf-8
             soup        = BeautifulSoup(rawtext, 'html5lib')
-            raw_html = soup.prettify().encode('utf-8')
+            raw_html = soup.prettify()
             documents.append(raw_html)
         dict_output['documents'] = documents
 
         return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, \
-                          separators=(',', ': ')).encode("utf-8")
+                          separators=(',', ': '))
 
 
 ###############################################################################

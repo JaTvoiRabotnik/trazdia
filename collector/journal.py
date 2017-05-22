@@ -14,6 +14,10 @@ class Journal():
         self.ocorrencias = {}
         self.tam_secoes = []
 
+    # Brings the whole edition for a given date, returns in JSON
+    def bring_edition(self):
+        pass
+
     def baixar_pagina(self, num_secao, num_pagina, data):
         pass
 
@@ -333,98 +337,31 @@ class Diario_Oficial_RJ(Journal):
             edition_dict = json.load(data_file)
             return edition_dict[date]
 
-    # Baixa uma pagina de uma secao de uma data de jornal
-    def baixar_pagina(self, num_secao, num_pagina, data):
+
+    # Brings the whole edition for a given date, returns in JSON
+    def bring_edition(self):
         logger = logging.getLogger('trazdia')
 
-        ediParams = get_edition_id_from_date(data)
-        materias = []
+        ediParams = get_edition_id_from_date(self.date)
+        raw_docs = []
         for edition in ediParams:
-            materias.append(getedition(ediParam, False))
+            raw_docs.append(getedition(ediParam, False))
 
+        # TODO enrich output with more details of section, subsection, etc.
         dict_output = {'journal': self.nome,
-                       'section': '',
-                       'date': data,
-                       'pages': '',
-                       'editorialpages': ''}
-        for materia in materias:
-            if matParam == materia['matId']:
-                response    = requests.get(materia['matLink'])
-                rawtext     = response.content
-                soup        = BeautifulSoup(rawtext, 'html5lib')
-                htmlfile = soup.prettify().encode('utf-8')
+                       'date': self.date}
+        documents = []
+        for raw_doc in raw_docs:
+            response    = requests.get(materia['matLink'])
+            rawtext     = response.content
+            # We use BeautifulSoup to convert to utf-8
+            soup        = BeautifulSoup(rawtext, 'html5lib')
+            raw_html = soup.prettify().encode('utf-8')
+            documents.append(raw_html)
+        dict_output['documents'] = documents
 
-
-        resultado = requests.get(pagina_jornal)
-        logger.info(pagina_jornal)
-        return resultado.content
-
-    def obter_num_paginas_secao(self, num_secao, data):
-        logger = logging.getLogger('trazdia')
-        ano = data[0:4]
-        mes = data[4:6]
-        dia = data[6:8]
-        reverse_date = dia + '/' + mes + '/' + ano
-        pagina_referencia = \
-            "http://diariooficial.imprensaoficial.com.br/nav_v4/header.asp?txtData=" \
-            + reverse_date + "&cad=" + str(num_secao + 3) + "&cedic=" + ano + mes + dia \
-            + "&pg=1&acao=&edicao=&secao="
-        # logger.info(pagina_referencia)
-        resultado = requests.get(pagina_referencia)
-        texto = resultado.text
-
-        x1, x2, x3 = texto.partition('<span class="tx_10 tx_bold">I de ')
-
-        if x3:
-            num_paginas_secao, x4, x5 = x3.partition('<')
-        else:
-            num_paginas_secao = -4
-
-        return int(num_paginas_secao) + 4
-
-
-    def link_for_id(self, id):
-        return self.base_link + '/pdf/pg_' + str(id).zfill(4) + '.pdf'
-
-
-    def translate_to_json(self, content, section):
-        soup = BeautifulSoup(content, "xml", from_encoding="iso-8859-1")
-        section_tag = soup.CADERNO
-        offset = int(section_tag['pageditoriais'])
-        dict_output = {'journal': self.nome,
-                       'section': section,
-                       'date': section_tag['ano'] + section_tag['mes'] + section_tag['dia'],
-                       'pages': section_tag['paginas'],
-                       'editorialpages': section_tag['pageditoriais']}
-        group_tags = section_tag.find_all('GRUPO')
-        groups = {}
-        for group_tag in group_tags:
-            subsections = {}
-            subsection_tags = group_tag.find_all('SECAO')
-            for subsection_tag in subsection_tags:
-                id = int(subsection_tag['inicio']) + offset
-                subsections[subsection_tag['nome']] = self.link_for_id(id)
-            groups[group_tag['nome']] = subsections
-        dict_output['groups'] = groups
         return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, \
                           separators=(',', ': ')).encode("utf-8")
-
-
-    def return_index(self, section):
-        logger = logging.getLogger('trazdia')
-
-        year = self.date[0:4]
-        month = self.get_month_PT(int(self.date[4:6]))
-        day = self.date[6:8]
-
-        self.base_link = 'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
-            + year + '/' + month + '/' + day + '/' + section
-        journal_index = self.base_link + '/xml/' + str(self.date) + '.xml'
-
-        result = requests.get(journal_index)
-        logger.info(journal_index)
-        json_result = self.translate_to_json(result.content, section)
-        return json_result
 
 
 ###############################################################################

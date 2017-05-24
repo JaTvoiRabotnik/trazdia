@@ -361,10 +361,17 @@ class Diario_Oficial_RJ(Journal):
             response    = requests.get(raw_doc['matLink'])
             rawtext     = response.content
             # We use BeautifulSoup to convert to utf-8
-            #soup        = BeautifulSoup(rawtext, 'html5lib')
-            #raw_html = soup.prettify()
-            #documents.append(raw_html)
-            documents.append(rawtext)
+            soup        = BeautifulSoup(rawtext)
+            soup.head.extract()
+            if soup.style is None:
+                print(soup.get_text())
+                sys.exit()
+            else:
+                soup.style.extract()
+                soup.style.extract()
+            raw_html = soup.prettify()
+            documents.append(raw_html)
+            #documents.append(rawtext)
         dict_output['documents'] = documents
 
         return json.dumps(dict_output, sort_keys=True, ensure_ascii=False, indent=4, \

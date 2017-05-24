@@ -2,6 +2,7 @@ import requests
 import logging
 #from bs4 import BeautifulSoup
 import json
+from bs4 import BeautifulSoup
 
 
 class Journal():

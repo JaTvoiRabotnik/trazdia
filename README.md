@@ -20,5 +20,8 @@ Toda vez que você criar um pull request no repositório da okfn-brasil, um job 
 
 Uma vez que o pull request foi aprovado e fundido com o Master, outro teste vai rodar e se tudo correr bem, [automaticamente implantado no Heroku](https://dashboard.heroku.com/apps/trazdia "Heroku build page")
 
+**Messaging**
+Para resolver o problema de processos asíncronos, usamos a biblioteca Celery. Ela requer o uso de um broker. Em produção usamos o RabbitMQ, mas você pode usar Redis em desenvolvimento se quiser. A variável de sistem `RABBITMQ_BIGWIG_URL` deve conter o endereço da fila de mensagens. Para mais informações, [leia o tutorial do Celery](http://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html#broker-rabbitmq)
+
 ### Linguagem:
 Por favor comunique-se em Português na descrição dos Issues, Milestones, etc. Mas dentro do código, incluindo testes e mensagens de commit, use o Inglês. A razão disso é que o aplicativo tem que ser auto-documentável e acessível internacionalmente, e o Inglês é a língua franca da programação.

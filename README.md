@@ -8,6 +8,7 @@ Trazdia, o trazedor de Diarios Oficiais. Ele baixa os Diarios Oficiais brasileir
 Esse é um projeto Open Source, toda contribuição é bem vinda. Usamos um processo de review, ou seja, ninguem pode fazer commit direto ao Master. Crie um branch e um Pull Request a ser aprovado por outro membro do projeto. Todo Pull Request deve ser adicionado a um Projeto. Igualmente os Issues. Por favor colabore para manter o projeto bem organizado, isso ajuda a manter nosso trabalho profissional, e tambem serve como treinamento de best practices.
 
 **Instruções:**
+
 *Recomendamos desenvolver em um sistema Linux. Se tua máquina é Windows, instale um VM Ubuntu*
 * Clone o repositório na sua máquina
 * Crie um virtualenv dentro do diretório do repositório e instale as dependências:
@@ -21,6 +22,7 @@ Toda vez que você criar um pull request no repositório da okfn-brasil, um job 
 Uma vez que o pull request foi aprovado e fundido com o Master, outro teste vai rodar e se tudo correr bem, [automaticamente implantado no Heroku](https://dashboard.heroku.com/apps/trazdia "Heroku build page")
 
 **Messaging**
+
 Para resolver o problema de processos asíncronos, usamos a biblioteca Celery. Ela requer o uso de um broker. Em produção usamos o RabbitMQ, mas você pode usar Redis em desenvolvimento se quiser. A variável de sistem `RABBITMQ_BIGWIG_URL` deve conter o endereço da fila de mensagens. Para mais informações, [leia o tutorial do Celery](http://docs.celeryproject.org/en/latest/getting-started/brokers/rabbitmq.html#broker-rabbitmq)
 
 ### Linguagem:

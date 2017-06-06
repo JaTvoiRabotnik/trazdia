@@ -1,17 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from pydoc import locate
-import logging
-import json
-
-logger = logging.getLogger(__name__)
-
-
-def get_journal_id(first_level, second_level):
-    with open('journal_id.json') as data_file:
-        edition_dict = json.load(data_file)
-        return edition_dict[first_level][second_level]
-
+import commander
 
 def index(request):
     return HttpResponse("TrazDia: colletor de Diarios Oficials")
@@ -22,20 +11,43 @@ def document(request, document_id):
     return HttpResponse(response % document_id)
 
 
-def journal_by_date_and_section(request, journal_id, date, section):
-    journal_class = locate('collector.journal.' + journal_id)
-    journal = journal_class(date)
-    content = journal.return_index(section)
-    response = HttpResponse(content_type='application/json')
-    response.write(content)
-    return response
+
+# Receives an index request from urls.py and defers to commander
+def command_get_index_3(request, first_level, second_level, third_level, date):
+    return commander.get_index(first_level, second_level, third_level, date)
+
+# Receives an index request from urls.py and defers to commander
+def command_get_index_2(request, first_level, second_level, date):
+    return commander.get_index(first_level, second_level, None, date)
+
+# Receives an index request from urls.py and defers to commander
+def command_get_index_1(request, first_level, date):
+    return commander.get_index(first_level, None, None, date)
 
 
-def journal_by_date(request, first_level, second_level, date):
-    journal_id = get_journal_id(first_level, second_level)
-    journal_class = locate('collector.journal.' + journal_id)
-    journal = journal_class(date)
-    content = journal.bring_edition()
-    response = HttpResponse(content_type='application/json')
-    response.write(content)
-    return response
+
+# Receives a full DO request from urls.py and defers to commander
+def command_get_full_do_3(request, first_level, second_level, third_level, date):
+    return commander.get_full_do(first_level, second_level, third_level, date)
+
+# Receives a full DO request from urls.py and defers to commander
+def command_get_full_do_2(request, first_level, second_level, date):
+    return commander.get_full_do(first_level, second_level, None, date)
+
+# Receives a full DO request from urls.py and defers to commander
+def command_get_full_do_1(request, first_level, date):
+    return commander.get_full_do(first_level, None, None, date)
+
+
+
+# Receives an individual document request from urls.py and defers to commander
+def command_get_individual_doc_3(request, first_level, second_level, third_level, date, document_id):
+    return commander.get_individual_doc(first_level, second_level, third_level, date, document_id)
+
+# Receives an individual document request from urls.py and defers to commander
+def command_get_individual_doc_2(request, first_level, second_level, date, document_id):
+    return commander.get_individual_doc(first_level, second_level, None, date, document_id)
+
+# Receives an individual document request from urls.py and defers to commander
+def command_get_individual_doc_1(request, first_level, date, document_id):
+    return commander.get_individual_doc(first_level, None, None, date, document_id)

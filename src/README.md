@@ -1,6 +1,6 @@
 Modelo de dados inicial, para a primeira fase do projeto Trazdia e de produção do OFICIAL.NEWS,
 
-![ [](https://yuml.me/311f036c) ](https://yuml.me/311f036c)
+![ [](https://yuml.me/980f72f2) ](https://yuml.me/980f72f2)
 
 ```
 [Jurisdição|-id;name;lexname;abbrev]
@@ -18,7 +18,7 @@ Modelo de dados inicial, para a primeira fase do projeto Trazdia e de produção
 [PubSeriada|-issn;name;abbrev;isDiario;info:JSON]
 [DiarioOficial|-id;name;abbrev;info:JSON]
 
-[Jurisdição]1---*[DiarioOficial]
+[Jurisdição]1..*---*[DiarioOficial]
 [Contratante]1---1..*[Contrato]
 [Editora]---1..*[Contrato]
 [PubSeriada]++-1>[DiarioOficial]

@@ -8,7 +8,7 @@ logger = logging.getLogger(__name__)
 
 
 def get_journal_id(first_level, second_level, third_level):
-    with open('journal_id.json') as data_file:
+    with open('collector/journal_id.json') as data_file:
         edition_dict = json.load(data_file)
         if(first_level):
             if(second_level):
@@ -45,6 +45,8 @@ def get_full_do(first_level, second_level, third_level, date):
     journal_class = locate('collector.journal.' + journal_id)
     journal = journal_class(date)
     content = journal.bring_edition()
+    if not content:
+        raise Http404('Page not found')
     response = HttpResponse(content_type='application/json')
     response.write(content)
     return response

@@ -365,7 +365,7 @@ class Diario_Oficial_RJ(Journal):
 
 
     def get_edition_id_from_date(self, date):
-        with open('rio_dictionary.json') as data_file:
+        with open('collector/rio_dictionary.json') as data_file:
             edition_dict = json.load(data_file)
             return edition_dict[date]
 

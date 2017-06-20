@@ -51,3 +51,13 @@ def command_get_individual_doc_2(request, first_level, second_level, date, docum
 # Receives an individual document request from urls.py and defers to commander
 def command_get_individual_doc_1(request, first_level, date, document_id):
     return commander.get_individual_doc(first_level, None, None, date, document_id)
+
+
+
+###############################################################################
+
+# Check whether worker has finished what it was doing
+def check_worker(request):
+    worker_id = request.GET.get('worker_id', None)
+    response = "Checking worker with ID %s."
+    return HttpResponse(response % worker_id)

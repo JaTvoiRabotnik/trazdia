@@ -1,0 +1,14 @@
+{
+  "sp": {
+    "sao_paulo": {
+      "executivo": "DO_SP_saopaulo_executivo",
+      "legislativo": "DO_SP_saopaulo_legislativo"
+    },
+    "executivo": "DO_SP_executivo"
+  },
+  "rj": {
+    "rio_de_janeiro": {
+      "executivo": "DO_RJ_riodejaneiro_executivo"
+    }
+  }
+}

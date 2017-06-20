@@ -7,9 +7,11 @@ from django.db import models
 #     def __str__(self):
 #         return self.origin + ' - ' + str(self.pub_date.day) + '/' + str(self.pub_date.month) + '/' + str(self.pub_date.year)
 #
-# # TODO must add more details to this class, with more structure.
-# class Document(models.Model):
-#     doc_text = models.CharField(max_length=5000)
+
+# TODO must add more details to this class, with more structure.
+class Separata(models.Model):
+    content = models.CharField(max_length=50000)                                # content in XML
+    content_dtd = models.CharField(max_length=5000)                             # ID of the DTD used for this document
 #     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 #
 #     def __str__(self):

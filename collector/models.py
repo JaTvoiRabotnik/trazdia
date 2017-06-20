@@ -9,9 +9,7 @@ from django.db import models
 #
 
 # TODO must add more details to this class, with more structure.
-class Separata(models.Model):
-    content = models.CharField(max_length=50000)                                # content in XML
-    content_dtd = models.CharField(max_length=5000)                             # ID of the DTD used for this document
+# class Separata(models.Model):
 #     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 #
 #     def __str__(self):

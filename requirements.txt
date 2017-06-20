@@ -3,7 +3,7 @@ beautifulsoup4==4.5.3
 behave==1.2.5
 behave-django==0.5.0
 bs4==0.0.1
-dj-database-url==0.4.2
+dj_database_url==0.4.2
 Django==1.11
 enum34==1.1.6
 factory-boy==2.8.1

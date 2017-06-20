@@ -43,7 +43,7 @@ class Journal():
         return self.baixar()
 
     # Get JSON with list of links to pages of a given DO
-    def return_index(self, section):
+    def return_index(self):
         pass
 
     def get_month_PT(self, month):
@@ -167,12 +167,12 @@ class Diario_Oficial_SP(Journal):
     nome = "Diario_Oficial_SP"
     base_link = ''
     numero_de_secoes = 2
+    section = ''
 
-    # Baixa uma pagina de uma secao de uma data de jornal e coloca em uma pasta
+
+    # Baixa uma pagina de uma secao de uma data de jornal
     def baixar_pagina(self, num_secao, num_pagina, data):
         logger = logging.getLogger('trazdia')
-        # Converte o numero da secao para um dos nomes das secoes
-        secao = self.section[num_secao - 1]
 
         ano = data[0:4]
         mes = data[4:6]
@@ -181,15 +181,16 @@ class Diario_Oficial_SP(Journal):
 
         pagina_jornal = \
             'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
-            + ano + '/' + mes + '/' + dia + '/' + secao + '/pdf/pg_' \
+            + ano + '/' + mes + '/' + dia + '/' + self.section + '/pdf/pg_' \
             + str(num_pagina).zfill(4) + '.pdf'
 
         resultado = requests.get(pagina_jornal)
         logger.info(pagina_jornal)
         return resultado.content
 
+
+
     def obter_num_paginas_secao(self, num_secao, data):
-        logger = logging.getLogger('trazdia')
         ano = data[0:4]
         mes = data[4:6]
         dia = data[6:8]
@@ -212,16 +213,21 @@ class Diario_Oficial_SP(Journal):
         return int(num_paginas_secao) + 4
 
 
+
     def link_for_id(self, id):
         return self.base_link + '/pdf/pg_' + str(id).zfill(4) + '.pdf'
 
 
-    def translate_to_json(self, content, section):
+
+    def translate_to_json(self, content):
         soup = BeautifulSoup(content, "xml", from_encoding="iso-8859-1")
+        if(soup.TITLE):
+            title = soup.TITLE.string
+            if(title == 'The page cannot be found'):
+                return None
         section_tag = soup.CADERNO
         offset = int(section_tag['pageditoriais'])
         dict_output = {'journal': self.nome,
-                       'section': section,
                        'date': section_tag['ano'] + section_tag['mes'] + section_tag['dia'],
                        'pages': section_tag['paginas'],
                        'editorialpages': section_tag['pageditoriais']}
@@ -239,23 +245,43 @@ class Diario_Oficial_SP(Journal):
                           separators=(',', ': ')).encode("utf-8")
 
 
-    def return_index(self, section):
-        logger = logging.getLogger('trazdia')
 
+    def return_index(self):
+        logger = logging.getLogger(__name__)
         year = self.date[0:4]
         month = self.get_month_PT(int(self.date[4:6]))
         day = self.date[6:8]
 
         self.base_link = 'http://diariooficial.imprensaoficial.com.br/doflash/prototipo/' \
-            + year + '/' + month + '/' + day + '/' + section
+            + year + '/' + month + '/' + day + '/' + self.section
         journal_index = self.base_link + '/xml/' + str(self.date) + '.xml'
 
         result = requests.get(journal_index)
         logger.info(journal_index)
-        json_result = self.translate_to_json(result.content, section)
+        json_result = self.translate_to_json(result.content)
         return json_result
 
 
+###############################################################################
+class DO_SP_saopaulo_executivo(Diario_Oficial_SP):
+    section = 'cidade'
+    nome = "Diario Oficial do municipio de Sao Paulo, estado de Sao Paulo, executivo"
+
+
+###############################################################################
+class DO_SP_saopaulo_legislativo(Diario_Oficial_SP):
+    section = 'legislativo'
+    nome = "Diario Oficial do municipio de Sao Paulo, estado de Sao Paulo, legislativo"
+
+
+###############################################################################
+class DO_SP_executivo(Diario_Oficial_SP):
+    section = 'exec1'
+    nome = "Diario Oficial do estado de Sao Paulo, executivo"
+
+
+
+###############################################################################
 ###############################################################################
 class Diario_Oficial_RJ(Journal):
     logger = logging.getLogger(__name__)
@@ -339,7 +365,7 @@ class Diario_Oficial_RJ(Journal):
 
 
     def get_edition_id_from_date(self, date):
-        with open('rio_dictionary.json') as data_file:
+        with open('collector/rio_dictionary.json') as data_file:
             edition_dict = json.load(data_file)
             return edition_dict[date]
 

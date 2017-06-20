@@ -1,0 +1,36 @@
+[Jurisdição| -id; name; lexname; abbrev]
+[Autoridade| -id; name; lexname; abbrev]
+[Editora| -cnpj; name; abbrev; info:JSON]
+[Periodico| -issn; name; abbrev; isDiario; info:JSON]
+[DiarioOficial| -id; name; abbrev; info:JSON]
+[Fascículo| -id; oficial_id; data; seq; oficial_url; info:JSON]
+[Estilo| -id; info:JSON]
+[Categoria| -id; termo; termo_canonico]
+[Img| -id; url_original]
+[Matéria| tipo]
+
+// This is the structure that represents the smallest unit of information
+[Separata| -id; oficial_id; seq; oficial_url; oficial_pag; conteudo:XML; cont_dtd; info:JSON]
+
+
+[Editora]<>---1..*[Periodico]
+
+[Jurisdição]1---*[Autoridade]
+[Jurisdição]<>---1..*[SubJurisdição]
+[Jurisdição]^-[SubJurisdição]
+
+[Autoridade]1---*[DiarioOficial]
+
+[DiarioOficial]++-1..*>[Fascículo]
+[Periodico]++-1>[DiarioOficial]
+[Fascículo]<>-1..*>[Separata]
+[Estilo]1---*[Fascículo]
+
+[Categoria]1---*[Separata]
+[Categoria]<>---*[Subcategoria]
+[Categoria]^-[Subcategoria]
+[Categoria]^-[Canônica]
+
+[Separata]^-[Matéria]
+[Separata]^-[Sumário]
+[Separata]1---*[img]

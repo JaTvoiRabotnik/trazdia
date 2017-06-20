@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'trazdia.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
+        'ENGINE': 'django.db.backends.postgresql'
     }
 }
 # Update database configuration with $DATABASE_URL. For Heroku deployment only
@@ -120,7 +120,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-uk'
 
-TIME_ZONE = 'GMT'
+TIME_ZONE = 'America/Sao_Paulo'
 
 USE_I18N = True
 

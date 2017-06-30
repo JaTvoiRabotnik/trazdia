@@ -73,7 +73,7 @@ def hello_world():
         cur = conn.cursor()
 
  # execute a statement
-        cur.callproc(‘issn.n2c’, (115))
+        cur.callproc('issn.n2c', (115))
 
         # display the PostgreSQL database server version
         function_return= cur.fetchone()

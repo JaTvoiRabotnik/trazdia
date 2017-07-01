@@ -84,7 +84,8 @@ def hello_world():
      # close the communication with the PostgreSQL
         cur.close()
     except (Exception, psycopg2.DatabaseError) as error:
-        print(error)
+        response = HttpResponse(content_type='text/html')
+        response.write(error)
     finally:
         if conn is not None:
             conn.close()

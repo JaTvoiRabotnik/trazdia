@@ -74,7 +74,8 @@ def hello_world():
         cur = conn.cursor()
 
         # execute a statement
-        cur.callproc('issn.n2c', (115))
+        #cur.callproc('issn.n2c', (115))
+        cur.execute("SELECT issn FROM issn.intcode LIMIT 1;")
 
         # display the PostgreSQL database server version
         function_return= cur.fetchone()
@@ -82,7 +83,7 @@ def hello_world():
 
         # close the communication with the PostgreSQL
         cur.close()
-    except psycopg2.DatabaseError as error:        
+    except psycopg2.DatabaseError as error:
         response.write(error)
     finally:
         if conn is not None:

@@ -75,7 +75,7 @@ def hello_world():
 
         # execute a statement
         #cur.callproc('issn.n2c', (115))
-        cur.execute("select issn.n2c(115)::int;")
+        cur.execute("select issn.n2ns(115)::text;")
 
         # display the PostgreSQL database server version
         function_return= cur.fetchone()

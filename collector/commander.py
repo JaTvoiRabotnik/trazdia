@@ -62,6 +62,7 @@ def get_individual_doc(first_level, second_level, third_level, date, document_id
 def hello_world():
     ### Connect to the PostgreSQL database server ###
     conn = None
+    response = None
     try:
         # read connection parameters
         params = config()
@@ -87,4 +88,4 @@ def hello_world():
     finally:
         if conn is not None:
             conn.close()
-            return response
+    return response

@@ -62,7 +62,7 @@ def get_individual_doc(first_level, second_level, third_level, date, document_id
 def hello_world():
     ### Connect to the PostgreSQL database server ###
     conn = None
-    response = None
+    response = HttpResponse(content_type='text/html')
     try:
         # read connection parameters
         params = config()
@@ -73,18 +73,16 @@ def hello_world():
         # create a cursor
         cur = conn.cursor()
 
- # execute a statement
+        # execute a statement
         cur.callproc('issn.n2c', (115))
 
         # display the PostgreSQL database server version
         function_return= cur.fetchone()
-        response = HttpResponse(content_type='text/html')
         response.write(function_return)
 
-     # close the communication with the PostgreSQL
+        # close the communication with the PostgreSQL
         cur.close()
-    except (Exception, psycopg2.DatabaseError) as error:
-        response = HttpResponse(content_type='text/html')
+    except psycopg2.DatabaseError as error:        
         response.write(error)
     finally:
         if conn is not None:

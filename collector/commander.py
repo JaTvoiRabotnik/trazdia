@@ -3,6 +3,8 @@ import logging
 import json
 from django.http import Http404
 from django.http import HttpResponse
+import psycopg2
+from config import config
 
 logger = logging.getLogger(__name__)
 
@@ -55,3 +57,35 @@ def get_full_do(first_level, second_level, third_level, date):
 # Try to find document on the cache, otherwise fire worker to get it from the source
 def get_individual_doc(first_level, second_level, third_level, date, document_id):
     pass
+
+
+def hello_world():
+    ### Connect to the PostgreSQL database server ###
+    conn = None
+    response = HttpResponse(content_type='text/html')
+    try:
+        # read connection parameters
+        params = config()
+
+        # connect to the PostgreSQL server
+        conn = psycopg2.connect(**params)
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # execute a statement
+        #cur.callproc('issn.n2c', (115))
+        cur.execute("select issn.n2ns(115)::text;")
+
+        # display the PostgreSQL database server version
+        function_return= cur.fetchone()
+        response.write(function_return)
+
+        # close the communication with the PostgreSQL
+        cur.close()
+    except psycopg2.DatabaseError as error:
+        response.write(error)
+    finally:
+        if conn is not None:
+            conn.close()
+    return response

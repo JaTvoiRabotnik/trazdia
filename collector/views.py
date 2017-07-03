@@ -61,3 +61,11 @@ def check_worker(request):
     worker_id = request.GET.get('worker_id', None)
     response = "Checking worker with ID %s."
     return HttpResponse(response % worker_id)
+
+
+
+###############################################################################
+
+# Hello World for the connection of Django and Postgres
+def helloworld(request):
+    return commander.hello_world()

@@ -20,4 +20,7 @@ urlpatterns = [
 
     # handles polling request for async process
     url(r'^ajax/check_worker/$', views.check_worker, name='check_worker'),
+
+    # hello world for database connection - stored procedures
+    url(r'^helloworld$', views.helloworld, name='hello_world'),
 ]

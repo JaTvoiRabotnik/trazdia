@@ -19,7 +19,7 @@ FragID  ::= CompactID | LexID
 
 Abaixo a EBNF é traduzida para uma representação visual, em diagramas.
 
-![](assets/fragId-syntax-diagram/fragId-syntax-fig1.png)
+![](assets/fragId-syntax-diagram/fig1.png)
 
 ### Identificador canônico
 Qualque tipo de documento (lei, norma técnica, contrato, licitação, etc.) pode ter seus fragmentos identifcados pelo `CompactID`:
@@ -55,10 +55,16 @@ NOTA: como variante **não-canônica** pode-se permitir o uso de *numerais roman
 Como alternativa à convenção de identificação canônica (garantida na representação interna na base de dados), pode-se expressar os mesmos identificadores, no caso de legislação e contratos. Convenções adotadas por Lima & Ciciliati (2008), fixando-se a versão 1.0 da norma LexML:
 
 Convenções para artigo e dispositivos de artigo
-![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/fragId-tablea1-artigos.png)
+![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/assets/fragId-tablea1-artigos.png)
+
+![](assets/fragId-syntax-diagram/ArtID.png)
+
 
 Agrupamento (hierárquico) de artigos
-![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/fragId-tablea2-secoes.png)
+![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/assets/fragId-tablea2-secoes.png)
+
+![](assets/fragId-syntax-diagram/SecID.png)
+
 
 ## Ver também
 

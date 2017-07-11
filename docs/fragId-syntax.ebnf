@@ -1,0 +1,40 @@
+/**
+ * Standard fragment identifier
+ * @see general methodology at Krauss&Lima(2003) and LexML standards v1.0 at Lima&Ciciliati(2008).
+ * @see http://www.nilc.icmc.usp.br/til/til2003/poster/krauss_Lima2.pdf
+ * @see http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf   
+ */
+
+FragID    ::= CompactID | LexID
+
+
+CompactID ::= 'a' HierInt | 's' HierInt
+
+
+LexID     ::= ArtId | SecId
+
+/*  Artigo e Dispositivos de Artigo */
+ArtID     ::= 'art' HierCod ('_' artPartLabel)*
+ArtPart   ::= artPartLabel HierCod
+
+/*  Agrupamento (hierárquico) de artigos */
+SecID     ::= secPartLabel HierCod ('_' SecID)*
+
+
+
+/* Hierarchical Integer */
+HierInt   ::= Digit | Digit '.' HierInt 
+
+/* Hierarchical Code */
+HierCod   ::= digit ('-' HierCode)* | roman ('-' HierCode)* 
+
+
+/* terminals: */
+
+digit     ::= [0-9]+
+
+roman     ::= ('I'|'V'|'X'|'L'|'C')+ /* must valid (and limited to 999) roman numeral */
+
+artPartLabel ::= 'cpt'|'par'|'inc'|'ali'|'ite'
+
+secPartLabel ::= 'tit'|'prt'|'liv'|'cap'|'sec'|'sub'

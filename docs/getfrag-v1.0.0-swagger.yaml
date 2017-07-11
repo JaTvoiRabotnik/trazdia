@@ -1,0 +1,82 @@
+swagger: '2.0'
+
+#####################################################################
+#                              API Information                      #
+#####################################################################
+info:
+  title: Fragment Resolver
+  version: "1.0.0"
+
+  description: |
+    To get the fragment content in a specified document with valid DTD.
+    
+    See general methodology at Krauss & Lima (2003) and LexML standards v1.0 at Lima & Ciciliati (2008).
+    ## References
+    * Krauss & Lima (2003) *"Notação Canônica para a Citação de Trechos de Normas Estatutárias Jurídicas Brasileiras"*, http://www.nilc.icmc.usp.br/til/til2003/poster/krauss_Lima2.pdf
+    * Lima & Ciciliati (2008) *"LexML Brasil, Parte 3 – LexML XML Schema"*, http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf
+
+  contact:
+    email: peter@ok.org.br
+
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+tags:
+- name: retriever
+  description: retrieves the fragment. 
+
+parameters:
+  docId:
+    name: docId
+    in: path
+    description: document URN or identifier. 
+    required: true
+    type: string
+  fragId:
+    name: fragId
+    in: path
+    description: fragment identifier. 
+    required: true
+    type: string
+
+
+#####################################################################
+#                              PATHS                                #
+#####################################################################
+paths:
+
+  /getfrag/{docId}/{fragId}:
+    get:
+      tags:
+      - retriever
+      summary: Retrieve the XML content of the fragment.
+      operationId: getFragXmlById
+      description: |
+        Retrieves the specified document's fragment. Status 404 occurs when document not exists. Status 405 when  fragment not exist.  
+      produces:
+      - application/xml
+      parameters:
+      - $ref: '#/parameters/docId'
+      - $ref: '#/parameters/fragId'
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: integer
+        404:
+          description: has not found the input issn.
+        416:
+          description: issn format is invalid.
+          
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /ppKrauss/getfrag/1.0.0
+# schemes:
+#  - http
+#  - https
+# Added by API Auto Mocking Plugin
+schemes:
+ - https
+ - http

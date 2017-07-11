@@ -47,24 +47,36 @@ Semântica:
 
 Seções ou parágrafos sem rótulo (numeração) explícito no documento original, não podem ser referenciados por *FragId*  (recorre-se convenções do tipo [XPointer](https://en.wikipedia.org/wiki/XPointer)).
 
-Exemplos: `a5` (artigo 5), `a5.2` (artigo 5b), `a5i2` (item II do artigo 5), `a5.1i2` (item II do artigo 5b), `c5` (cláusula 5), `c5.1.2` (cláusula 5.1.2), `t3` (tabela 3), `t3.2` (tabela 3 parte 2), `f4` (figura 4), `f4i1` (figura 4 item 1), `s2` (seção 2), `s2.1` (seção 2 subseção 1).
+Exemplos: `a5` (artigo 5), `a5.2` (artigo 5b), `a5i2` (item II do artigo 5), `a5.1i2` (item II do artigo 5b), `a5.1i2.5` (item V do parágrafo 2 do artigo 5b), `c5` (cláusula 5), `c5.1.2` (cláusula 5.1.2), `t3` (tabela 3), `t3.2` (parte 2 da tabela 3), `f4` (figura 4), `f4i1` (item 1 da figura 4), `s2` (seção 2), `s2.1` (subseção 1 da seção 2). 
 
 NOTA: como variante **não-canônica** pode-se permitir o uso de *numerais romanos* no lugar dos dígitos decimais (*HierInt* é abreviação de "hierarchical integer").
 
 ### Identificador alternativo LexML
 Como alternativa à convenção de identificação canônica (garantida na representação interna na base de dados), pode-se expressar os mesmos identificadores, no caso de legislação e contratos. Convenções adotadas por Lima & Ciciliati (2008), fixando-se a versão 1.0 da norma LexML:
 
-Convenções para artigo e dispositivos de artigo
+Convenções para artigo e dispositivos de artigo<br/>
 ![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/assets/fragId-tablea1-artigos.png)
 
+Dos exemplos se percebe a seguinte generalização:<br/>
 ![](assets/fragId-syntax-diagram/ArtID.png)
 
+```ebnf
+ArtID     ::= 'art' HierCod ('_' artPartLabel)*
+ArtPart   ::= artPartLabel HierCod
+HierCod   ::= digit ('-' HierCode)* 
+artPartLabel ::= 'cpt'|'par'|'inc'|'ali'|'ite'
+```
 
-Agrupamento (hierárquico) de artigos
+Agrupamento (hierárquico) de artigos<br/>
 ![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/assets/fragId-tablea2-secoes.png)
 
+Dos exemplos se persebe a seguinte generalização:<br/>
 ![](assets/fragId-syntax-diagram/SecID.png)
 
+```ebnf
+SecID     ::= secPartLabel HierCod ('_' SecID)*
+secPartLabel ::= 'tit'|'prt'|'liv'|'cap'|'sec'|'sub'
+```
 
 ## Ver também
 

@@ -1,0 +1,80 @@
+
+# Identificador de fragmento
+
+Para obter o conteúdo de um fragmento de documento, ou seja, uma porção fixada por sua estrutura, basta designar o [*identificador de fragmento*](https://en.wikipedia.org/wiki/Fragment_identifier) (**fragId**) do fragmento desejado.
+
+Como os documentos normativos (eg. normas técnicas e legislação) e os contratos são todos formatados da mesma forma (usando [HTML5 simplificado](https://github.com/ppKrauss/HTML5-onlyContent), XML [ISOSTS](http://www.iso.org/schema/isosts/v1.0/doc/) ou XML [LexML](http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf)) e com uma estrutura similar, pode-se designar os elementos estruturais como identificadores padronizados. A metodologia para a obtenção de IDs de "XML quaisquer" foi descrita em Krauss & Lima (2003).
+
+A API `api.oficial.news/getfrag` faz esse "meio de campo", interpretando *identificadores padronizados*, expressos dentro de uma sintaxe bem definida (padrões compacto e alternativo), e extraindo o fragmento desejado de dentro do documento indicado.
+
+A especificação completa da API se encontra em [getfrag-v1.0.0-swagger.yaml](getfrag-v1.0.0-swagger.yaml) (visualizar em [swaggerhub.com/ppKrauss/getfrag/1.0.0](https://app.swaggerhub.com/apis/ppKrauss/getfrag/1.0.0)).
+
+## Sintaxe do *fragId*
+
+A sintaxe completa é especificada por [EBNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) em  [fragId-syntax.ebnf](fragId-syntax.ebnf). Ela consiste de uma string que expressa pelo esquema `CompactID` ou `LexID`, sendo que a presentação canônica (sempre existe e é mantida assim na base de dados) é a `CompactID`.
+
+```ebnf
+FragID  ::= CompactID | LexID
+```
+
+Abaixo a EBNF é traduzida para uma representação visual, em diagramas.
+
+![](assets/fragId-syntax-diagram/fragId-syntax-fig1.png)
+
+### Identificador canônico
+Qualque tipo de documento (lei, norma técnica, contrato, licitação, etc.) pode ter seus fragmentos identifcados pelo `CompactID`:
+
+```ebnf
+CompactID ::= (FragType HierInt ('i'  HierInt)?) | 's' HierInt
+FragType  ::= 'a'|'c'|'t'|'f'
+HierInt   ::= Digit | Digit '.' HierInt
+digit     ::= [0-9]+
+```
+
+Semântica:
+
+* `a`: indica articulação, típica de leis e contratos tradiconais, onde a numeração decimal serial é usada no original (ex. "Artigo 5º" ou "Art. 5").
+
+* `i`: subestrutura explícita e rotulada (com romanos, decimais ou letras), tal como item, alínea ou parágrafo.
+
+* `c`: cláusula, típica de contratos modernos, onde o único tipo de estrutura é a cláusula ou sub-cláusula, não se distingue articulação e seu agrupamento.
+
+* `t`: tabela ou box flutuante de texto (sem ilustração), ou sua parte.
+
+* `f`: figura (ilustração ou box com ilustração) ou sua parte.
+
+* `s`: agrupamento de artigos ou cláusulas. Seções, capítulos ou títulos.
+
+Seções ou parágrafos sem rótulo (numeração) explícito no documento original, não podem ser referenciados por *FragId*  (recorre-se convenções do tipo [XPointer](https://en.wikipedia.org/wiki/XPointer)).
+
+Exemplos: `a5` (artigo 5), `a5.2` (artigo 5b), `a5i2` (item II do artigo 5), `a5.1i2` (item II do artigo 5b), `c5` (cláusula 5), `c5.1.2` (cláusula 5.1.2), `t3` (tabela 3), `t3.2` (tabela 3 parte 2), `f4` (figura 4), `f4i1` (figura 4 item 1), `s2` (seção 2), `s2.1` (seção 2 subseção 1).
+
+NOTA: como variante **não-canônica** pode-se permitir o uso de *numerais romanos* no lugar dos dígitos decimais (*HierInt* é abreviação de "hierarchical integer").
+
+### Identificador alternativo LexML
+Como alternativa à convenção de identificação canônica (garantida na representação interna na base de dados), pode-se expressar os mesmos identificadores, no caso de legislação e contratos. Convenções adotadas por Lima & Ciciliati (2008), fixando-se a versão 1.0 da norma LexML:
+
+Convenções para artigo e dispositivos de artigo
+![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/fragId-tablea1-artigos.png)
+
+Agrupamento (hierárquico) de artigos
+![](https://raw.githubusercontent.com/okfn-brasil/trazdia/master/docs/fragId-tablea2-secoes.png)
+
+## Ver também
+
+Sumário das fontes relevantes. Elas complementam a formalização dos *inputs* e *outputs* do *microservice* `getfrag`, e a especificação dos IDs:
+
+* Metodologia geral de mapeamento em IdFrag padronizado: Krauss & Lima (2003).
+* Recomendação de padronização de IDs do LexML: tabelas 2 e 3 de Lima & Ciciliati (2008).
+* Especificação OpenAPI da  `api.oficial.news/getfrag`: Krauss (2017).
+* [fragId-syntax.ebnf](fragId-syntax.ebnf).
+* [fragId-syntax-fig.xhtml](fragId-syntax-fig.xhtml).
+* [getfrag-v1.0.0-swagger.yaml](getfrag-v1.0.0-swagger.yaml).
+
+## Referências
+
+* Krauss & Lima (2003) *"Notação Canônica para a Citação de Trechos de Normas Estatutárias Jurídicas Brasileiras"*, http://www.nilc.icmc.usp.br/til/til2003/poster/krauss_Lima2.pdf
+
+* Krauss (2017) *"OPEN API specification of `api.oficial.news/getfrag`"*, https://app.swaggerhub.com/apis/ppKrauss/getfrag/1.0.0
+
+* Lima & Ciciliati (2008) *"LexML Brasil, Parte 3 – LexML XML Schema"*, http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf

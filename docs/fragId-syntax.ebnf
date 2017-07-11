@@ -1,14 +1,12 @@
 /**
- * Standard fragment identifier
- * @see general methodology at Krauss&Lima(2003) and LexML standards v1.0 at Lima&Ciciliati(2008).
+ * Identificador padrão de fragmento (standard fragment identifier) de uma matéria de Diário Oficial.
  * @see http://www.nilc.icmc.usp.br/til/til2003/poster/krauss_Lima2.pdf
- * @see http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf   
+ * @see http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf
  */
 
 FragID    ::= CompactID | LexID
 
-
-CompactID ::= 'a' HierInt | 's' HierInt
+CompactID ::= (('a'|'c'|'t'|'f')  HierInt ('i'  HierInt)?) | 's' HierInt
 
 
 LexID     ::= ArtId | SecId
@@ -23,10 +21,10 @@ SecID     ::= secPartLabel HierCod ('_' SecID)*
 
 
 /* Hierarchical Integer */
-HierInt   ::= Digit | Digit '.' HierInt 
+HierInt   ::= Digit | Digit '.' HierInt
 
 /* Hierarchical Code */
-HierCod   ::= digit ('-' HierCode)* | roman ('-' HierCode)* 
+HierCod   ::= digit ('-' HierCode)* | roman ('-' HierCode)*
 
 
 /* terminals: */

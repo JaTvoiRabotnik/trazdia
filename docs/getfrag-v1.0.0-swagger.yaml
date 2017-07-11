@@ -61,13 +61,13 @@ paths:
       - $ref: '#/parameters/fragId'
       responses:
         200:
-          description: search results matching criteria
+          description: results matching criteria
           schema:
-            type: integer
+            type: string
         404:
-          description: has not found the input issn.
+          description: has not found the input docId or fragId.
         416:
-          description: issn format is invalid.
+          description: document's DTD not compatible with fragment standards.
           
 
 # Added by API Auto Mocking Plugin

@@ -14,7 +14,7 @@ A especificação completa da API se encontra em [getfrag-v1.0.0-swagger.yaml](g
 A sintaxe completa é especificada por [EBNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) em  [fragId-syntax.ebnf](fragId-syntax.ebnf). Ela consiste de uma string que expressa pelo esquema `CompactID` ou `LexID`, sendo que a presentação canônica (sempre existe e é mantida assim na base de dados) é a `CompactID`.
 
 ```ebnf
-FragID  ::= CompactID | LexID
+FragID  = CompactID | LexID
 ```
 
 Abaixo a EBNF é traduzida para uma representação visual, em diagramas.
@@ -25,17 +25,17 @@ Abaixo a EBNF é traduzida para uma representação visual, em diagramas.
 Qualque tipo de documento (lei, norma técnica, contrato, licitação, etc.) pode ter seus fragmentos identifcados pelo `CompactID`:
 
 ```ebnf
-CompactID ::= (FragType HierInt ('i'  HierInt)?) | 's' HierInt
-FragType  ::= 'a'|'c'|'t'|'f'
-HierInt   ::= Digit | Digit '.' HierInt
-digit     ::= [0-9]+
+CompactID = (FragType HierInt ("i"  HierInt)?) | "s" HierInt
+FragType  = "a" | "c" | "t" | "f"
+HierInt   = Digit | Digit "." HierInt
+digit     = [0-9]+
 ```
 
 Semântica:
 
 * `a`: indica articulação, típica de leis e contratos tradiconais, onde a numeração decimal serial é usada no original (ex. "Artigo 5º" ou "Art. 5").
 
-* `i`: subestrutura explícita e rotulada (com romanos, decimais ou letras), tal como item, alínea ou parágrafo.
+* `i`: item no sentido de subestrutura explícita e rotulada (com romanos, dígitos ou letras), tal como item, parágrafo ou alínea.
 
 * `c`: cláusula, típica de contratos modernos, onde o único tipo de estrutura é a cláusula ou sub-cláusula, não se distingue articulação e seu agrupamento.
 
@@ -43,11 +43,11 @@ Semântica:
 
 * `f`: figura (ilustração ou box com ilustração) ou sua parte.
 
-* `s`: agrupamento de artigos ou cláusulas. Seções, capítulos ou títulos.
+* `s`: agrupamento de artigos ou cláusulas. Seções, capítulos ou títulos. Preferir `c` em caso de cláusulas-seção.
 
-Seções ou parágrafos sem rótulo (numeração) explícito no documento original, não podem ser referenciados por *FragId*  (recorre-se convenções do tipo [XPointer](https://en.wikipedia.org/wiki/XPointer)).
+Itens e seções sem  numeração (rotulação de sequência) explícita no documento original, não podem ser referenciados por *FragId*  (recorre-se às convenções do tipo [XPointer](https://en.wikipedia.org/wiki/XPointer)).  Um parser amigável pode tratar o item posicionalmente quando da ausência de um ID no elemento estrutal.
 
-Exemplos: `a5` (artigo 5), `a5.2` (artigo 5b), `a5i2` (item II do artigo 5), `a5.1i2` (item II do artigo 5b), `a5.1i2.5` (item V do parágrafo 2 do artigo 5b), `c5` (cláusula 5), `c5.1.2` (cláusula 5.1.2), `t3` (tabela 3), `t3.2` (parte 2 da tabela 3), `f4` (figura 4), `f4i1` (item 1 da figura 4), `s2` (seção 2), `s2.1` (subseção 1 da seção 2). 
+Exemplos: `a5` (artigo 5), `a5.2` (artigo 5b), `a5i2` (item II do artigo 5), `a5.1i2` (item II do artigo 5b), `a5.1i2.5` (item V do parágrafo 2 do artigo 5b), `c5` (cláusula 5), `c5.1.2` (cláusula 5.1.2), `t3` (tabela 3), `t3.2` (bloco 2 da tabela 3), `t3i2` (linha 2 da tabela 3), `f4` (figura 4), `f4i1` (item 1 da figura 4), `s2` (seção 2), `s2.1` (subseção 1 da seção 2).
 
 NOTA: como variante **não-canônica** pode-se permitir o uso de *numerais romanos* no lugar dos dígitos decimais (*HierInt* é abreviação de "hierarchical integer").
 
@@ -61,10 +61,10 @@ Dos exemplos se percebe a seguinte generalização:<br/>
 ![](assets/fragId-syntax-diagram/ArtID.png)
 
 ```ebnf
-ArtID     ::= 'art' HierCod ('_' artPartLabel)*
-ArtPart   ::= artPartLabel HierCod
-HierCod   ::= digit ('-' HierCode)* 
-artPartLabel ::= 'cpt'|'par'|'inc'|'ali'|'ite'
+ArtID     = "art" HierCod ("_" artPartLabel)*
+ArtPart   = artPartLabel HierCod
+HierCod   = digit ("-" HierCode)*
+artPartLabel = "cpt" | "par" | "inc" | "ali" | "ite"
 ```
 
 Agrupamento (hierárquico) de artigos<br/>
@@ -74,8 +74,8 @@ Dos exemplos se persebe a seguinte generalização:<br/>
 ![](assets/fragId-syntax-diagram/SecID.png)
 
 ```ebnf
-SecID     ::= secPartLabel HierCod ('_' SecID)*
-secPartLabel ::= 'tit'|'prt'|'liv'|'cap'|'sec'|'sub'
+SecID        = secPartLabel HierCod ("_" SecID)*
+secPartLabel = "tit" | "prt" | "liv" | "cap" | "sec" | "sub"
 ```
 
 ## Ver também
@@ -96,3 +96,5 @@ Sumário das fontes relevantes. Elas complementam a formalização dos *inputs* 
 * Krauss (2017) *"OPEN API specification of `api.oficial.news/getfrag`"*, https://app.swaggerhub.com/apis/ppKrauss/getfrag/1.0.0
 
 * Lima & Ciciliati (2008) *"LexML Brasil, Parte 3 – LexML XML Schema"*, http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf
+
+* Railroad Diagram Generator, http://www.bottlecaps.de/rr/ui ([opcional](https://github.com/Chrriis/RRDiagram))

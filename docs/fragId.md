@@ -11,7 +11,7 @@ A especificação completa da API se encontra em [getfrag-v1.0.0-swagger.yaml](g
 
 ## Sintaxe do *fragId*
 
-A sintaxe completa é especificada por [EBNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) em  [fragId-syntax.ebnf](fragId-syntax.ebnf). Ela consiste de uma string que expressa pelo esquema `CompactID` ou `LexID`, sendo que a presentação canônica (sempre existe e é mantida assim na base de dados) é a `CompactID`.
+A sintaxe completa é especificada por [EBNF](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) formato RDG (2017) em  [fragId-syntax.ebnf](fragId-syntax.ebnf). Ela consiste de uma string que expressa pelo esquema `CompactID` ou `LexID`, sendo que a presentação canônica (sempre existe e é mantida assim na base de dados) é a `CompactID`.
 
 ```ebnf
 FragID  = CompactID | LexID
@@ -25,11 +25,13 @@ Abaixo a EBNF é traduzida para uma representação visual, em diagramas.
 Qualque tipo de documento (lei, norma técnica, contrato, licitação, etc.) pode ter seus fragmentos identifcados pelo `CompactID`:
 
 ```ebnf
-CompactID = (FragType HierInt ("i"  HierInt)?) | "s" HierInt
-FragType  = "a" | "c" | "t" | "f"
-HierInt   = Digit | Digit "." HierInt
-digit     = [0-9]+
+CompactID = (FragType, HierInt ["i",  HierInt]) 
+            | ("s", HierInt);
+FragType  = "a" | "c" | "t" | "f";
+HierInt   = Digit | (Digit, ".", HierInt);
+digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 ```
+&nbsp; NOTA: EBNF colorida em [formato ISO 14977](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form#Table_of_symbols).
 
 Semântica:
 
@@ -61,10 +63,10 @@ Dos exemplos se percebe a seguinte generalização:<br/>
 ![](assets/fragId-syntax-diagram/ArtID.png)
 
 ```ebnf
-ArtID     = "art" HierCod ("_" artPartLabel)*
-ArtPart   = artPartLabel HierCod
-HierCod   = digit ("-" HierCode)*
-artPartLabel = "cpt" | "par" | "inc" | "ali" | "ite"
+ArtID     = "art", HierCod, {"_", artPartLabel};
+ArtPart   = artPartLabel, HierCod;
+HierCod   = digit, {"-", HierCode};
+artPartLabel = "cpt" | "par" | "inc" | "ali" | "ite";
 ```
 
 Agrupamento (hierárquico) de artigos<br/>
@@ -74,8 +76,8 @@ Dos exemplos se persebe a seguinte generalização:<br/>
 ![](assets/fragId-syntax-diagram/SecID.png)
 
 ```ebnf
-SecID        = secPartLabel HierCod ("_" SecID)*
-secPartLabel = "tit" | "prt" | "liv" | "cap" | "sec" | "sub"
+SecID        = secPartLabel, HierCod {"_", SecID};
+secPartLabel = "tit" | "prt" | "liv" | "cap" | "sec" | "sub";
 ```
 
 ## Ver também
@@ -97,4 +99,4 @@ Sumário das fontes relevantes. Elas complementam a formalização dos *inputs* 
 
 * Lima & Ciciliati (2008) *"LexML Brasil, Parte 3 – LexML XML Schema"*, http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf
 
-* Railroad Diagram Generator, http://www.bottlecaps.de/rr/ui ([opcional](https://github.com/Chrriis/RRDiagram))
+* RDG - Railroad Diagram Generator (2017), http://www.bottlecaps.de/rr/ui ([opcional](https://github.com/Chrriis/RRDiagram)). Acessado em julho de 2017.

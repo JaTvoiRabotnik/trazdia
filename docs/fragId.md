@@ -3,11 +3,11 @@
 
 Para obter o conteúdo de um fragmento de documento, ou seja, uma porção fixada por sua estrutura, basta designar o [*identificador de fragmento*](https://en.wikipedia.org/wiki/Fragment_identifier) (**fragId**) do fragmento desejado.
 
-Como os documentos normativos (eg. normas técnicas e legislação) e os contratos são todos formatados da mesma forma (usando [HTML5 simplificado](https://github.com/ppKrauss/HTML5-onlyContent), XML [ISOSTS](http://www.iso.org/schema/isosts/v1.0/doc/) ou XML [LexML](http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf)) e com uma estrutura similar, pode-se designar os elementos estruturais como identificadores padronizados. A metodologia para a obtenção de IDs de "XML quaisquer" foi descrita em Krauss & Lima (2003).
+Como os documentos normativos, tais como normas técnicas e legislação, e os contratos são todos construídos dentro de um mesmo arcabouço de redação técnico-jurídica, fixados em formatos similares ([HTML5 simplificado](https://github.com/okfn-brasil/HTML5-onlyContent/blob/master/spec.md), XML [ISOSTS](http://www.iso.org/schema/isosts/v1.0/doc/) ou XML [LexML](http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf)) e com uma estrutura similar, pode-se designar os elementos estruturais como identificadores (IDs) padronizados. A metodologia para a obtenção de IDs de "XML quaisquer" foi descrita em Krauss & Lima (2003).
 
 A API `api.oficial.news/getfrag` faz esse "meio de campo", interpretando *identificadores padronizados*, expressos dentro de uma sintaxe bem definida (padrões compacto e alternativo), e extraindo o fragmento desejado de dentro do documento indicado.
 
-A especificação completa da API se encontra em [getfrag-v1.0.0-swagger.yaml](getfrag-v1.0.0-swagger.yaml) (visualizar em [swaggerhub.com/ppKrauss/getfrag/1.0.0](https://app.swaggerhub.com/apis/ppKrauss/getfrag/1.0.0)).
+A especificação completa da API se encontra em [getfrag-v1.0.0.yaml](getfrag-v1.0.0-swagger.yaml) (visualizar em [swaggerhub.com/ppKrauss/getfrag](https://app.swaggerhub.com/apis/ppKrauss/getfrag/1.0.0)).
 
 ## Sintaxe do *fragId*
 

@@ -1,7 +1,9 @@
 
 # Identificador de fragmento
 
-Para obter o conteúdo de um fragmento de documento, ou seja, uma porção fixada por sua estrutura, basta designar o [*identificador de fragmento*](https://en.wikipedia.org/wiki/Fragment_identifier) (**fragId**) do fragmento desejado.
+Para obter o conteúdo de um fragmento de documento, ou seja, uma porção fixada por sua estrutura, basta designar o [*identificador de fragmento*](https://en.wikipedia.org/wiki/Fragment_identifier) (**fragId**) do fragmento desejado. Ver API temporária em http://api.ok.org.br/#getfrag
+
+----
 
 Como os documentos normativos, tais como normas técnicas e legislação, e os contratos são todos construídos dentro de um mesmo arcabouço de redação técnico-jurídica, fixados em formatos similares ([HTML5 simplificado](https://github.com/okfn-brasil/HTML5-onlyContent/blob/master/spec.md), XML [ISOSTS](http://www.iso.org/schema/isosts/v1.0/doc/) ou XML [LexML](http://projeto.lexml.gov.br/documentacao/Parte-3-XML-Schema.pdf)) e com uma estrutura similar, pode-se designar os elementos estruturais como identificadores (IDs) padronizados. A metodologia para a obtenção de IDs de "XML quaisquer" foi descrita em Krauss & Lima (2003).
 

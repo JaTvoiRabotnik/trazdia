@@ -1,7 +1,7 @@
 <?php
 /**
  * Resolve o identificador LexCondo e confere sua presença no XML indicado.
- * Exemplo: php resolver.php estatuto2009-dtdLex a17i2
+ * Exemplo: php frag-resolver.php condo-estatuto a17i2
  *    http://teste.oficial.news/frag-resolver.php?file=estatuto2009-dtdLex1&fullFragId=a17i2
  */
 
@@ -31,16 +31,10 @@ if ($is_cli) {
                 $file = $m[1];
                 $fullFragId = $m[2];
         }
-// ex. getfrag/estatuto2009-dtdLex1/a17i2
-  // used with API Gateway pre-parsing:
-  //$fullFragId = $_REQUEST['fullFragId'];
-  //$fullFragId = $_REQUEST['fullFragId'];
 }
-
 if (!$file || !$fullFragId) dieMsg(file_get_contents("frag-help.inc.html"));
 
 
------
 // CONFIGS SIMULACAO BASE DE DADOS:
 $translate = [
   'condo-estatuto'=>     'condo-estatuto2009-v1.lex1.htm',
@@ -49,12 +43,8 @@ $translate = [
   'okbr-estatuto2013'=>  'okbr-estatuto2013-v1.lex1.htm',
 ];
 
-//INPUT:
-$file='condo-estatuto';
-
 $aux = strtolower($file); if (isset($translate[$aux])) $file=$translate[$aux];
-//$pathFile = "./$file";
-$pathFile = TEST? "/tmp/$file.htm" :"/var/www/api.ok.org.br/$file.htm"; // vai buscar na base
+$pathFile = TEST? "./contents_demo/$file" :"/var/www/api.ok.org.br/contents_demo/$file";
 
 $dom = xml2dom($pathFile);
 if ($dom===false) dieMsg("arquivo não-encontrado: '$pathFile'",29);

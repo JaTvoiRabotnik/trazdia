@@ -3,13 +3,24 @@
     <meta charset="utf-8"/>
     <meta name="dtd" content="html5-lex1"/>
     <title>Estatuto OKBR 2013</title>
-    <link href="tema01.css" media="screen" rel="stylesheet" type="text/css"/>
-    <script src="https://code.jquery.com/jquery-1.12.4.js"/>
+    <link href="tema02.css" media="screen" rel="stylesheet" type="text/css"/>
     <!-- opcional -->
-    <script src="mostra.js"/>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="mostra.v2.js"></script>
     <!-- opcional -->
   </head>
   <body>
+
+
+<nav style="background-color:#AAA"><h3>TESTES DE ACESSO À ESTRUTURA</h3>
+  Digite o ID do bloco desejado (ex. <code>art10</code>, <code>art2caput</code>, <code>art2par3</code> ou <code>sec2</code>)<br/>
+  <input id="busca1" type="text" />
+  &#160;<input type="submit" onclick="mostra()" value="MOSTRAR" />
+  &#160;<input type="submit" onclick="mostra(1)" value="VER NO CONTEXTO" />
+  <div id="mostraqui"></div>
+</nav>
+
+
     <article>
       <header>
         <h1>Estatuto Social da Open Knowledge Foundation Brasil</h1>
@@ -17,10 +28,10 @@
       <section id="sec1">
         <h2><span>Capítulo I</span> – Da denominação, sede e duração</h2>
         <div class="art" id="art1">
-          <p class="art-caput"><span>Artigo 1º</span> – A OPEN KNOWLEDGE FOUNDATION BRASIL, também designada por REDE PELO CONHECIMENTO LIVRE, doravante abreviada por OKF Brasil, é uma pessoa jurídica de direito privado, da modalidade Associação, sem fins lucrativos ou de fins não econômicos, políticos-partidários ou religiosos.</p>
+          <p class="caput"><span>Artigo 1º</span> – A OPEN KNOWLEDGE FOUNDATION BRASIL, também designada por REDE PELO CONHECIMENTO LIVRE, doravante abreviada por OKF Brasil, é uma pessoa jurídica de direito privado, da modalidade Associação, sem fins lucrativos ou de fins não econômicos, políticos-partidários ou religiosos.</p>
         </div>
         <div class="art" id="art2">
-          <p class="art-caput"><span>Artigo 2º</span> – A OKF Brasil tem sede e foro na cidade de São Paulo – Capital, da Rua Peixoto Gomide, 388/141, Jardim Paulista, CEP 01409-000, São Paulo – SP, e atuação em todo o território nacional, podendo estabelecer-se em qualquer localidade ou dependência administrativa, criando as subsedes necessárias para o bom desempenho de suas atividades e finalidades.</p>
+          <p class="caput"><span>Artigo 2º</span> – A OKF Brasil tem sede e foro na cidade de São Paulo – Capital, da Rua Peixoto Gomide, 388/141, Jardim Paulista, CEP 01409-000, São Paulo – SP, e atuação em todo o território nacional, podendo estabelecer-se em qualquer localidade ou dependência administrativa, criando as subsedes necessárias para o bom desempenho de suas atividades e finalidades.</p>
           <p class="par"><span>§ 1º</span> – A associação terá prazo indeterminado e será regida por este Estatuto e pela legislação brasileira em vigor.</p>
           <p class="par"><span>§ 2º</span> – A OKF Brasil atuará de forma coordenada com a “Open Knowledge Foundation – OKF”, organização internacional sem fins lucrativos, com sede em Cambridge, Reino Unido, que tem por missão a promoção do conhecimento livre em todo o mundo. A OKF Brasil, de acordo com o artigo 3º da Lei 9790, de 23 de março de 1999, atua para a promoção livre da educação, do voluntariado, do desenvolvimento econômico e social e combate à pobreza, para a experimentação, não lucrativa, de novos modelos sócio-produtivos e de sistemas alternativos de produção; a promoção de direitos estabelecidos e construção de novos direitos; a promoção da cultura, defesa e conservação do patrimônio histórico e artístico; a promoção da ética, da paz, da cidadania, dos direitos humanos, da democracia e de outros valores universais, e dos estudos e pesquisas, desenvolvimento de tecnologias alternativas, produção e divulgação de informações e conhecimentos técnicos e científicos.</p>
           <p class="par"><span>§ 3º</span> – A OKF Brasil segue as diretrizes da “Open Knowledge Foundation – OKF”, organização internacional sem fins lucrativos, com sede em Cambridge, Reino Unido.</p>
@@ -30,18 +41,18 @@
       <section id="sec2">
         <h2><span>Capítulo II</span> – Dos Objetivos</h2>
         <div class="art" id="art3">
-          <p class="art-caput"><span>Artigo 3º</span> – A missão da OKF Brasil é promover a abertura de todas as formas de conhecimento.</p>
+          <p class="caput"><span>Artigo 3º</span> – A missão da OKF Brasil é promover a abertura de todas as formas de conhecimento.</p>
           <p class="par"><span>§ único</span> – Os conceitos “abrir conhecimento” e “conhecimento aberto” referem-se à formulação desenvolvida no contexto da Open Knowledge Foundation, publicada em <a rel="nofollow" class="external free" href="http://opendefiniton.org">http://opendefiniton.org</a> e presente no final desse Estatuto, no <b>Anexo I</b>.</p>
         </div>
         <div class="art" id="art4">
-          <p class="art-caput"><span>Artigo 4º</span> – A OKF Brasil tem como objetivos principais:</p>
+          <p class="caput"><span>Artigo 4º</span> – A OKF Brasil tem como objetivos principais:</p>
           <p class="par upper-roman"><span>§ I.</span> – Promover a liberdade de acesso, uso, criação, recombinação, estudo e disseminação de conhecimento.</p>
           <p class="par upper-roman"><span>§ II.</span> – Promover e facilitar o usufruto dessas liberdades.</p>
           <p class="par upper-roman"><span>§ III.</span> – Opor-se fundamentadamente a quaisquer tipos de restrições (legais, técnicas, públicas, privadas etc.) a essas liberdades, observado o equilíbrio entre direitos individuais.</p>
           <p class="par upper-roman"><span>§ IV.</span> – Encontrar formas sustentáveis de atingir seus objetivos.</p>
         </div>
         <div class="art" id="art5">
-          <p class="art-caput"><span>Artigo 5º</span> – Para a realização dos objetivos previstos nos artigos anteriores e para o bom desenvolvimento e aperfeiçoamento de suas atividades, a OKF Brasil poderá desenvolver, promover, colaborar, divulgar, elaborar, incentivar, disponibilizar, fomentar, criar, construir, realizar, implementar, recomendar, consultar, assistir ou cooperar em:</p>
+          <p class="caput"><span>Artigo 5º</span> – Para a realização dos objetivos previstos nos artigos anteriores e para o bom desenvolvimento e aperfeiçoamento de suas atividades, a OKF Brasil poderá desenvolver, promover, colaborar, divulgar, elaborar, incentivar, disponibilizar, fomentar, criar, construir, realizar, implementar, recomendar, consultar, assistir ou cooperar em:</p>
           <p class="item upper-roman"><span>I.</span> estudos, pesquisas e conhecimentos técnicos científicos, relatórios, legislação e instrumentos jurídicos;</p>
           <p class="item upper-roman"><span>II.</span> cursos, simpósios, seminários, conferências, oficinas, feiras, congressos;</p>
           <p class="item upper-roman"><span>III.</span> aplicativos de informática, plataformas tecnológicas, normas, protocolos, ferramentas, dispositivos;</p>
@@ -56,10 +67,10 @@
           <p class="par"><span>§ 6º</span> – No desempenho de suas atividades, a OKF Brasil observará os princípios da legalidade, impessoalidade, moralidade, publicidade, economicidade e eficiência.</p>
         </div>
         <div class="art" id="art6">
-          <p class="art-caput"><span>Artigo 6º</span> – A OKF Brasil poderá adotar um Regimento Interno, aprovado pela Diretoria Executiva, com a finalidade de regular e detalhar as disposições contidas neste Estatuto, além de regular o processo eleitoral.</p>
+          <p class="caput"><span>Artigo 6º</span> – A OKF Brasil poderá adotar um Regimento Interno, aprovado pela Diretoria Executiva, com a finalidade de regular e detalhar as disposições contidas neste Estatuto, além de regular o processo eleitoral.</p>
         </div>
         <div class="art" id="art7">
-          <p class="art-caput"><span>Artigo 7º</span> – A fim de cumprir seus objetivos, a OKF Brasil poderá se organizar em tantas unidades quantas forem necessárias, em qualquer parte do território nacional, para realizar sua missão e seus objetivos.</p>
+          <p class="caput"><span>Artigo 7º</span> – A fim de cumprir seus objetivos, a OKF Brasil poderá se organizar em tantas unidades quantas forem necessárias, em qualquer parte do território nacional, para realizar sua missão e seus objetivos.</p>
         </div>
       </section>
       <!--sec-->
@@ -68,15 +79,15 @@
         <section id="sec3.1">
           <h3><span>Seção I</span> – Do quadro social</h3>
           <div class="art" id="art8">
-            <p class="art-caput"><span>Artigo 8º</span> – O quadro social da OKF Brasil é composto por:</p>
-            <p class="item upper-roman"><span>§ Iº</span> – Associados Efetivos - correspondem àqueles que participaram da assembléia de constituição da OKF Brasil e assinaram a ata respectiva, e àqueles que vierem a ser admitidos nessa qualidade pelo Conselho Deliberativo, a qualquer tempo, nos termos do artigo 9º, parágrafo primeiro;</p>
-            <p class="item upper-roman"><span>§ IIº</span> – Associados Colaboradores - correspondem àqueles que vierem a fazer parte do quadro social, após a constituição da OKF Brasil, nos termos do artigo 9º, caput, deste Estatuto;</p>
-            <p class="item upper-roman"><span>§ IIIº</span> – Associados Honorários – pessoas físicas ou jurídicas que têm destacada atuação em áreas relacionadas com os objetivos da Associação e sejam indicadas por dois Associados Efetivos como merecedor do reconhecimento e distinção e aprovados por unanimidade pelo Conselho Deliberativo, sem terem, contudo, direito à voto.</p>
+            <p class="caput"><span>Artigo 8º</span> – O quadro social da OKF Brasil é composto por:</p>
+            <p class="item upper-roman"><span>I</span> – Associados Efetivos - correspondem àqueles que participaram da assembléia de constituição da OKF Brasil e assinaram a ata respectiva, e àqueles que vierem a ser admitidos nessa qualidade pelo Conselho Deliberativo, a qualquer tempo, nos termos do artigo 9º, parágrafo primeiro;</p>
+            <p class="item upper-roman"><span>II</span> – Associados Colaboradores - correspondem àqueles que vierem a fazer parte do quadro social, após a constituição da OKF Brasil, nos termos do artigo 9º, caput, deste Estatuto;</p>
+            <p class="item upper-roman"><span>III</span> – Associados Honorários – pessoas físicas ou jurídicas que têm destacada atuação em áreas relacionadas com os objetivos da Associação e sejam indicadas por dois Associados Efetivos como merecedor do reconhecimento e distinção e aprovados por unanimidade pelo Conselho Deliberativo, sem terem, contudo, direito à voto.</p>
             <p class="par"><span>§ 1º</span> O número de associados da OKF Brasil é ilimitado, podendo participar do quadro social qualquer pessoa física, desde que satisfaça as exigências previstas nesse Estatuto.</p>
             <p class="par"><span>§ 2º</span> Os associados da OKF Brasil não respondem solidária ou subsidiariamente pelas obrigações da entidade.</p>
           </div>
           <div class="art" id="art9">
-            <p class="art-caput"><span>Artigo 9º</span> – Poderá ser admitida como Associado Colaborador qualquer pessoa física apresentada por, no mínimo, dois (02) membros que já integrem o quadro social da OKF Brasil, mediante aprovação unânime do Conselho Deliberativo.</p>
+            <p class="caput"><span>Artigo 9º</span> – Poderá ser admitida como Associado Colaborador qualquer pessoa física apresentada por, no mínimo, dois (02) membros que já integrem o quadro social da OKF Brasil, mediante aprovação unânime do Conselho Deliberativo.</p>
             <p class="par"><span>§ único</span> – O Conselho Deliberativo poderá decidir pela promoção de um Associado Colaborador para Associado Efetivo, mediante a indicação de, no mínimo, dois (02) Associados Efetivos e aprovação unânime.</p>
           </div>
         </section>
@@ -84,22 +95,22 @@
         <section id="sec3.2">
           <h3><span>Seção II</span> – Dos direitos e deveres dos associados</h3>
           <div class="art" id="art10">
-            <p class="art-caput"><span>Artigo 10º</span> – São direitos dos Associados Colaboradores:</p>
-            <p class="item upper-roman"><span>§ Iº</span> – participar e manifestar-se nas Assembléias Gerais;</p>
-            <p class="item upper-roman"><span>§ IIº</span> – ter o direito de ser diretamente informado de todas as informações pertinentes à Associação;</p>
-            <p class="item upper-roman"><span>§ IIIº</span> – envolver-se nas atividades promovidas pela OKF Brasil;</p>
-            <p class="item upper-roman"><span>§ IVº</span> – requerer, com pelo menos ⅕ (um quinto) dos membros, a convocação da Assembléia Geral;</p>
-            <p class="item upper-roman"><span>§ Vº</span> – propor a admissão de novos Associados;</p>
-            <p class="item upper-roman"><span>§ VIº</span> – desligar-se da Associação.</p>
+            <p class="caput"><span>Artigo 10º</span> – São direitos dos Associados Colaboradores:</p>
+            <p class="item upper-roman"><span>I</span> – participar e manifestar-se nas Assembléias Gerais;</p>
+            <p class="item upper-roman"><span>II</span> – ter o direito de ser diretamente informado de todas as informações pertinentes à Associação;</p>
+            <p class="item upper-roman"><span>III</span> – envolver-se nas atividades promovidas pela OKF Brasil;</p>
+            <p class="item upper-roman"><span>IV</span> – requerer, com pelo menos ⅕ (um quinto) dos membros, a convocação da Assembléia Geral;</p>
+            <p class="item upper-roman"><span>V</span> – propor a admissão de novos Associados;</p>
+            <p class="item upper-roman"><span>VI</span> – desligar-se da Associação.</p>
             <p class="par"><span>§ único</span> – Aos Associados Honorários são assegurados os direitos previstos nos incisos I, III e VI do caput deste artigo.</p>
           </div>
           <div class="art" id="art11">
-            <p class="art-caput"><span>Artigo 11º</span> – São direitos dos Associados Efetivos os mesmos dos Associados Colaboradores, acrescidos de:</p>
+            <p class="caput"><span>Artigo 11º</span> – São direitos dos Associados Efetivos os mesmos dos Associados Colaboradores, acrescidos de:</p>
             <p class="item upper-roman"><span>§ Iº</span> – Votar e ser votado nas Assembléias Gerais, na conformidade do presente Estatuto.</p>
             <p class="par"><span>§ único</span> – O desligamento dos associados será requerido por meio de pedido descrito à Diretoria Executiva, sendo considerado efetivo a partir da data do seu recebimento, desde que data posterior não seja indicada no pedido, sendo desnecessária sua aceitação, a menos que solicitada expressamente pelo requerente.</p>
           </div>
           <div class="art" id="art12">
-            <p class="art-caput"><span>Artigo 12º</span> – São deveres dos associados da OKF Brasil:</p>
+            <p class="caput"><span>Artigo 12º</span> – São deveres dos associados da OKF Brasil:</p>
             <p class="item upper-roman"><span>I.</span> praticar e defender a realização dos objetivos sociais, e prestigiar a OKF Brasil por todos os meios a seu alcance;</p>
             <p class="item upper-roman"><span>II.</span> respeitar e cumprir o Estatuto e outras normas internas da OKF Brasil, bem como as deliberações dos órgãos sociais;</p>
             <p class="item upper-roman"><span>III.</span> desempenhar com zelo e dedicação os cargos para os quais forem eventualmente eleitos, bem como as atribuições que lhes forem confiadas pelos órgãos sociais;</p>
@@ -112,13 +123,13 @@
         <section id="sec3.3">
           <h3><span>Seção III</span> – Das penalidades</h3>
           <div class="art" id="art13">
-            <p class="art-caput"><span>Artigo 13º</span> – A prática por qualquer Associado da OKF Brasil de atos incompatíveis com este Estatuto, com outras normas internas, com as deliberações dos órgãos sociais ou com os objetivos e o decoro da Entidade, poderá ensejar as seguintes penalidades:</p>
+            <p class="caput"><span>Artigo 13º</span> – A prática por qualquer Associado da OKF Brasil de atos incompatíveis com este Estatuto, com outras normas internas, com as deliberações dos órgãos sociais ou com os objetivos e o decoro da Entidade, poderá ensejar as seguintes penalidades:</p>
             <p class="item upper-roman"><span>§ Iº</span>. Advertência por escrito;</p>
             <p class="item upper-roman"><span>§ IIº</span>. Suspensão de 30 (trinta) dias até 01 (um) ano;</p>
             <p class="item upper-roman"><span>§ IIIº</span>. Eliminação do quadro social.</p>
           </div>
           <div class="art" id="art14">
-            <p class="art-caput"><span>Artigo 14º</span> – Compete à Diretoria Executiva a aplicação das penalidades previstas no artigo anterior, mediante a representação de qualquer interessado.</p>
+            <p class="caput"><span>Artigo 14º</span> – Compete à Diretoria Executiva a aplicação das penalidades previstas no artigo anterior, mediante a representação de qualquer interessado.</p>
             <p class="par"><span>§ 1º</span> – As penalidades serão aplicadas apenas após a audiência do Associado, que poderá aduzir por escrito a sua defesa no prazo de dez (10) dias, a contar da data de recebimento da correspondente notificação.</p>
             <p class="par"><span>§ 2º</span> – Da penalidade imposta caberá recurso, sem efeito suspensivo, a primeira Assembléia Geral que se realizar.</p>
           </div>
@@ -129,7 +140,7 @@
       <section id="sec4">
         <h2><span>Capítulo IV</span> – Da Administração</h2>
         <div class="art" id="art15">
-          <p class="art-caput"><span>Artigo 15º</span> – A OKF Brasil é administrada pelos seguintes órgãos sociais:</p>
+          <p class="caput"><span>Artigo 15º</span> – A OKF Brasil é administrada pelos seguintes órgãos sociais:</p>
           <p class="item upper-roman"><span>§ Iº</span> – Assembléia Geral;</p>
           <p class="item upper-roman"><span>§ IIº</span> – Conselho Deliberativo;</p>
           <p class="item upper-roman"><span>§ IIIº</span> – Diretoria Executiva;</p>
@@ -138,7 +149,7 @@
         <section id="sec4.1">
           <h3><span>Seção I</span> – Da Assembléia Geral</h3>
           <div class="art" id="art16">
-            <p class="art-caput"><span>Artigo 16º</span> – A Assembléia Geral dos Associados, legalmente constituída e instalada, é o órgão supremo da OKF Brasil, podendo resolver todos os assuntos que não possam ser resolvidos pelos demais órgãos sociais. De forma específica, compete-lhe:</p>
+            <p class="caput"><span>Artigo 16º</span> – A Assembléia Geral dos Associados, legalmente constituída e instalada, é o órgão supremo da OKF Brasil, podendo resolver todos os assuntos que não possam ser resolvidos pelos demais órgãos sociais. De forma específica, compete-lhe:</p>
             <p class="item upper-roman"><span>I.</span> eleger os membros do Conselho Deliberativo, da Diretoria Executiva e do Conselho Fiscal, indicados nos <b>artigos 24º</b>, <b>29º</b>, e <b>33º</b>;</p>
             <p class="item upper-roman"><span>II.</span> destituir os membros do Conselho Deliberativo, da Diretoria e do Conselho Fiscal;</p>
             <p class="item upper-roman"><span>III.</span> aprovar as contas anuais da OKF Brasil, mediante parecer do Conselho Fiscal e, caso necessário, com auxílio de auditoria externa;</p>
@@ -149,116 +160,116 @@
             <p class="par"><span>§ único</span> – Para as deliberações que se referem nos <b>incisos</b><b>II</b> e <b>VII</b> do <i>caput</i> deste artigo exige-se o voto concorde de ⅔ (dois terços) dos associados presentes à Assembléia Geral convocada especialmente para esse fim.</p>
           </div>
           <div class="art" id="art17">
-            <p class="art-caput"><span>Artigo 17º</span> – A Assembléia Geral reunir-se-á:</p>
+            <p class="caput"><span>Artigo 17º</span> – A Assembléia Geral reunir-se-á:</p>
             <p class="item upper-roman"><span>§ Iº</span> – ordinariamente, de preferência no primeiro semestre do ano, para:</p>
             <p class="item lower-alpha"><span>a)</span> anualmente, apreciar o balanço, o relatório da administração e as contas da Diretoria Executiva;</p>
             <p class="item lower-alpha"><span>b)</span> a cada 3 (três) anos, eleger os membros do Conselho Deliberativo, da Diretoria Executiva e do Conselho Fiscal;</p>
           </div>
           <div class="art" id="art18">
-            <p class="art-caput"><span>Artigo 18º</span> – A Assembléia Geral será ordinária ou extraordinária, podendo ser cumulativamente convocadas e realizadas no mesmo local, data e hora e instrumentadas em ata única.</p>
+            <p class="caput"><span>Artigo 18º</span> – A Assembléia Geral será ordinária ou extraordinária, podendo ser cumulativamente convocadas e realizadas no mesmo local, data e hora e instrumentadas em ata única.</p>
             <p class="par"><span>§ 1º</span> – A Assembléia Geral reunir-se-á, extraordinariamente, a qualquer tempo, por motivos de relevância e/ou urgência, podendo ser convocada por qualquer dos Diretores ou Conselheiros Deliberativos ou a pedido, por escrito, de ⅕ (um quinto) dos Associados.</p>
             <p class="par"><span>§ 2º</span> – A convocação será realizada mediante divulgação no sítio web da Associação, na lista de discussão pública da OKF Brasil e envio de correio eletrônico (e-mail), com aviso de recebimento, a todos os Associados, com antecedência mínima de 10 (dez) dias, especificando a data, hora, local e a Ordem do Dia.</p>
           </div>
           <div class="art" id="art19">
-            <p class="art-caput"><span>Artigo 19º</span> – As Assembléias Gerais serão presididas pelo Presidente do Conselho Deliberativo ou na sua ausência pelo Associado indicado pela maioria simples dos Conselheiros Deliberativos presentes à Assembléia, a quem competirá a escolha do secretário.</p>
+            <p class="caput"><span>Artigo 19º</span> – As Assembléias Gerais serão presididas pelo Presidente do Conselho Deliberativo ou na sua ausência pelo Associado indicado pela maioria simples dos Conselheiros Deliberativos presentes à Assembléia, a quem competirá a escolha do secretário.</p>
             <p class="par"><span>§ único</span> – As Assembléias Gerais instalar-se-ão em primeira convocação com a presença de maioria simples dos Associados, salvo exceções previstas neste Estatuto, e, em segunda convocação, trinta minutos após, com qualquer número, sendo as deliberações feitas por metade mais um dos associados presentes.</p>
           </div>
           <div class="art" id="art20">
-            <p class="art-caput"><span>Artigo 20º</span> – As deliberações das Assembléias Gerais, regularmente tomadas, obrigam todos os Associados, ainda que ausentes, dentro das disposições do presente Estatuto.</p>
+            <p class="caput"><span>Artigo 20º</span> – As deliberações das Assembléias Gerais, regularmente tomadas, obrigam todos os Associados, ainda que ausentes, dentro das disposições do presente Estatuto.</p>
           </div>
           <div class="art" id="art21">
-            <p class="art-caput"><span>Artigo 21º</span> – Os Associados poderão acompanhar as Assembléias Gerais de maneira remota via Internet e poderão se fazer representar por procuração simples dada a outro Associado, apresentada ao Presidente do Conselho Deliberativo ou, conforme o caso, ao presidente da Assembléia, antes do início das deliberações.</p>
+            <p class="caput"><span>Artigo 21º</span> – Os Associados poderão acompanhar as Assembléias Gerais de maneira remota via Internet e poderão se fazer representar por procuração simples dada a outro Associado, apresentada ao Presidente do Conselho Deliberativo ou, conforme o caso, ao presidente da Assembléia, antes do início das deliberações.</p>
           </div>
           <div class="art" id="art22">
-            <p class="art-caput"><span>Artigo 22º</span> – Na hipótese de empate na votação de qualquer deliberação da Assembléia Geral, caberá ao Presidente da Assembléia Geral decidir.</p>
+            <p class="caput"><span>Artigo 22º</span> – Na hipótese de empate na votação de qualquer deliberação da Assembléia Geral, caberá ao Presidente da Assembléia Geral decidir.</p>
           </div>
           <div class="art" id="art23">
-            <p class="art-caput"><span>Artigo 23º</span> – Serão lavradas atas de cada Assembléia Geral que serão devidamente registradas em cartório competente.</p>
+            <p class="caput"><span>Artigo 23º</span> – Serão lavradas atas de cada Assembléia Geral que serão devidamente registradas em cartório competente.</p>
           </div>
         </section>
         <!--subsec-->
         <section id="sec4.2">
           <h3><span>Seção II</span> – Do Conselho Deliberativo</h3>
           <div class="art" id="art24">
-            <p class="art-caput"><span>Artigo 24º</span> – O Conselho Deliberativo será composto por, no mínimo, 04 (quatro) e máximo 07 (sete) membros eleitos em Assembléia Geral Ordinária, entre nomes indicados pelos Associados, com mandato de 03 (três) anos, sendo permitidas reeleições.</p>
+            <p class="caput"><span>Artigo 24º</span> – O Conselho Deliberativo será composto por, no mínimo, 04 (quatro) e máximo 07 (sete) membros eleitos em Assembléia Geral Ordinária, entre nomes indicados pelos Associados, com mandato de 03 (três) anos, sendo permitidas reeleições.</p>
             <p class="par"><span>§ 1º</span> – Na ausência permanente de quaisquer de seus membros, o Conselho Deliberativo continuará deliberando com o número de conselheiros remanescentes, exceto se, em função dessa ausência, a composição do Conselho Deliberativo for reduzida para menos que 02 (dois) membros. Neste caso, qualquer Conselheiro Deliberativo deverá convocar, nos termos do presente, dentro de 10 (dez) dias da ausência do Conselheiro Deliberativo, uma Assembléia Geral Extraordinária para eleição de 03 (três) novos conselheiros para completar o mandato.</p>
             <p class="par"><span>§ 2º</span> – Se a ausência for temporária o Conselho Deliberativo continuará a deliberar com o número de conselheiros em atividade.</p>
           </div>
           <div class="art" id="art25">
-            <p class="art-caput"><span>Artigo 25º</span> – Ao Conselho Deliberativo compete:</p>
+            <p class="caput"><span>Artigo 25º</span> – Ao Conselho Deliberativo compete:</p>
             <p class="item upper-roman"><span>I.</span> supervisionar as atividades da OKF Brasil;</p>
             <p class="item upper-roman"><span>II.</span> aprovar a verba de remuneração da Diretoria Executiva, cujos diretores desempenharão suas atividades em caráter voluntário, sem direito a qualquer remuneração, nos termos do <b>parágrafo 1º</b> do <b>artigo 30º</b>;</p>
             <p class="item upper-roman"><span>III.</span> examinar e aprovar quaisquer atos da Diretoria Executiva;</p>
             <p class="item upper-roman"><span>IV.</span>  adotar e estabelecer, para todos os órgãos da OKF Brasil, práticas de gestão administrativa, necessárias e suficientes a coibir a obtenção, de forma individual ou coletiva, de benefícios ou vantagens pessoais, em decorrência da participação no respectivo processo decisório.</p>
           </div>
           <div class="art" id="art26">
-            <p class="art-caput"><span>Artigo 26º</span> – Os membros do Conselho Deliberativo elegerão o seu próprio Presidente.</p>
+            <p class="caput"><span>Artigo 26º</span> – Os membros do Conselho Deliberativo elegerão o seu próprio Presidente.</p>
           </div>
           <div class="art" id="art27">
-            <p class="art-caput"><span>Artigo 27º</span> – O Conselho Deliberativo reunir-se-á sempre que convocado por quaisquer dos seus membros, mas poderá deliberar por meio de documento escrito, assinado por seus membros, sem a necessidade de convocação de reunião para esse fim.</p>
+            <p class="caput"><span>Artigo 27º</span> – O Conselho Deliberativo reunir-se-á sempre que convocado por quaisquer dos seus membros, mas poderá deliberar por meio de documento escrito, assinado por seus membros, sem a necessidade de convocação de reunião para esse fim.</p>
             <p class="par"><span>§ 1º</span> – As reuniões do Conselho Deliberativo serão dirigidas por seu Presidente, assistido por um secretário “ad hoc”, salvo na hipótese de sua ausência ou impedimento, situação na qual aquele será substituído por um dos seus pares.</p>
             <p class="par"><span>§ 2º</span> – As decisões do Conselho Deliberativo serão obtidas através do consenso. Se não houver consenso, o Presidente decidirá o impasse.</p>
           </div>
           <div class="art" id="art28">
-            <p class="art-caput"><span>Artigo 28º</span> – Os membros do Conselho Deliberativo não serão remunerados.</p>
+            <p class="caput"><span>Artigo 28º</span> – Os membros do Conselho Deliberativo não serão remunerados.</p>
           </div>
         </section>
         <!--subsec-->
         <section id="sec4.3">
           <h3><span>Seção III</span> – Da Diretoria Executiva</h3>
           <div class="art" id="art29">
-            <p class="art-caput"><span>Artigo 29º</span> – A Diretoria Executiva é o órgão social administrativo e executor da Associação, colegiado e eleito pela Assembléia Geral, responsável pela representação institucional da associação, sendo composto por um Diretor Executivo e um Diretor Adjunto, com mandatos de 03 (três) anos, sendo permitidas reconduções.</p>
+            <p class="caput"><span>Artigo 29º</span> – A Diretoria Executiva é o órgão social administrativo e executor da Associação, colegiado e eleito pela Assembléia Geral, responsável pela representação institucional da associação, sendo composto por um Diretor Executivo e um Diretor Adjunto, com mandatos de 03 (três) anos, sendo permitidas reconduções.</p>
             <p class="par"><span>§ único</span> – É vedado aos Diretores acumularem os cargos de Diretor e Conselheiro Deliberativo ou Diretor e Conselheiro Fiscal. A eleição para o cargo de Diretor implica a perda automática do cargo de Conselheiro Deliberativo ou Conselheiro Fiscal.</p>
           </div>
           <div class="art" id="art30">
-            <p class="art-caput"><span>Artigo 30º</span> – Compete à Diretoria Executiva:</p>
-            <p class="par upper-roman"><span>§ I.</span> – Zelar pelo fiel cumprimento do presente Estatuto e das deliberações da Assembléia Geral e divulgar a OKF Brasil;</p>
-            <p class="par upper-roman"><span>§ II.</span> – Dirigir as atividades da OKF Brasil, de acordo com o presente estatuto, e praticar os atos de gestão administrativa;</p>
-            <p class="par upper-roman"><span>§ III.</span> – Propor à Assembléia Geral as modificações que se fizerem necessárias no Estatuto;</p>
-            <p class="par upper-roman"><span>§ IV.</span> – Representar e defender os interesses de seus associados;</p>
-            <p class="par upper-roman"><span>§ V.</span> – Elaborar, anualmente, o programa de trabalho e o orçamento da OKF Brasil;</p>
-            <p class="par upper-roman"><span>§ VI.</span> – Propor uma estrutura organizacional compatível com a missão e programas da OKF Brasil;</p>
-            <p class="par upper-roman"><span>§ VII.</span> – Estabelecer diretrizes sobre as atividades do pessoal da OKF Brasil, determinando as bases de sua remuneração;</p>
-            <p class="par upper-roman"><span>§ VIII.</span> – Apresentar a Assembléia Geral, na reunião anual, o relatório de sua gestão e prestar contas referentes ao exercício anterior;</p>
-            <p class="par upper-roman"><span>§ IX.</span> – Admitir pedido de inscrição de associados;</p>
-            <p class="par upper-roman"><span>§ X.</span> – Acatar pedido de demissão voluntária de associados;</p>
-            <p class="par upper-roman"><span>§ XI.</span> – Periodicamente, conforme previsão estatutária, convocar Assembléia Geral Ordinária e convocar Assembléia Geral, a qualquer tempo, quando julgar necessário;</p>
-            <p class="par upper-roman"><span>§ XII.</span> – Deliberar sobre custos, despesas e encargos significativos não previstos no orçamento anual;</p>
-            <p class="par upper-roman"><span>§ XIII.</span> – Assinar contratos e demais documentos que se fizerem necessários.</p>
+            <p class="caput"><span>Artigo 30º</span> – Compete à Diretoria Executiva:</p>
+            <p class="par upper-roman"><span>I</span> – Zelar pelo fiel cumprimento do presente Estatuto e das deliberações da Assembléia Geral e divulgar a OKF Brasil;</p>
+            <p class="par upper-roman"><span>II</span> – Dirigir as atividades da OKF Brasil, de acordo com o presente estatuto, e praticar os atos de gestão administrativa;</p>
+            <p class="par upper-roman"><span>III</span> – Propor à Assembléia Geral as modificações que se fizerem necessárias no Estatuto;</p>
+            <p class="par upper-roman"><span>IV</span> – Representar e defender os interesses de seus associados;</p>
+            <p class="par upper-roman"><span>V</span> – Elaborar, anualmente, o programa de trabalho e o orçamento da OKF Brasil;</p>
+            <p class="par upper-roman"><span>VI</span> – Propor uma estrutura organizacional compatível com a missão e programas da OKF Brasil;</p>
+            <p class="par upper-roman"><span>VII</span> – Estabelecer diretrizes sobre as atividades do pessoal da OKF Brasil, determinando as bases de sua remuneração;</p>
+            <p class="par upper-roman"><span>VIII</span> – Apresentar a Assembléia Geral, na reunião anual, o relatório de sua gestão e prestar contas referentes ao exercício anterior;</p>
+            <p class="par upper-roman"><span>IX</span> – Admitir pedido de inscrição de associados;</p>
+            <p class="par upper-roman"><span>X</span> – Acatar pedido de demissão voluntária de associados;</p>
+            <p class="par upper-roman"><span>XI</span> – Periodicamente, conforme previsão estatutária, convocar Assembléia Geral Ordinária e convocar Assembléia Geral, a qualquer tempo, quando julgar necessário;</p>
+            <p class="par upper-roman"><span>XII</span> – Deliberar sobre custos, despesas e encargos significativos não previstos no orçamento anual;</p>
+            <p class="par upper-roman"><span>XIII</span> – Assinar contratos e demais documentos que se fizerem necessários.</p>
             <p class="par"><span>§ único</span> – O Conselho Deliberativo poderá deliberar a instituição de remuneração e o valor desta para os dirigentes da entidade que atuem efetivamente na gestão executiva e para aqueles que a ela prestam serviços específicos, respeitados, em ambos os casos, os valores praticados pelo mercado, na região correspondente à sua área de atuação.</p>
           </div>
           <div class="art" id="art31">
-            <p class="art-caput"><span>Artigo 31º</span> – Ao Diretor Executivo compete:</p>
-            <p class="item upper-roman"><span>§ Iº</span>. Zelar pelo fiel cumprimento do presente Estatuto e das deliberações da Assembléia Geral e divulgar a OKF Brasil;</p>
-            <p class="item upper-roman"><span>§ IIº</span>. Representar a OKF Brasil ativa e passivamente, perante os órgãos públicos, judiciais e extrajudiciais, inclusive em juízo ou fora dele, podendo delegar poderes e constituir procuradores e advogados para o fim que julgar necessário;</p>
-            <p class="item upper-roman"><span>§ IIIº</span>. Abrir e manter contas bancárias, assinar cheques e documentos bancários e contábeis;</p>
-            <p class="item upper-roman"><span>§ IVº</span>. Organizar relatório contendo o balanço do exercício financeiro e os principais eventos do ano anterior, apresentando-o à Assembléia Geral Ordinária;</p>
-            <p class="item upper-roman"><span>§ Vº</span>. Contratar funcionários ou auxiliares especializados, fixando seus vencimentos, podendo licenciá-los, suspendê-los ou demiti-los;</p>
-            <p class="item upper-roman"><span>§ VIº</span>. Firmar, em nome da OKF Brasil, o aceite de doações, convênios, termos de parceria, termos de compromisso, contratos, títulos e acordos de qualquer natureza.</p>
+            <p class="caput"><span>Artigo 31º</span> – Ao Diretor Executivo compete:</p>
+            <p class="item upper-roman"><span>I</span>. Zelar pelo fiel cumprimento do presente Estatuto e das deliberações da Assembléia Geral e divulgar a OKF Brasil;</p>
+            <p class="item upper-roman"><span>II</span>. Representar a OKF Brasil ativa e passivamente, perante os órgãos públicos, judiciais e extrajudiciais, inclusive em juízo ou fora dele, podendo delegar poderes e constituir procuradores e advogados para o fim que julgar necessário;</p>
+            <p class="item upper-roman"><span>III</span>. Abrir e manter contas bancárias, assinar cheques e documentos bancários e contábeis;</p>
+            <p class="item upper-roman"><span>IV</span>. Organizar relatório contendo o balanço do exercício financeiro e os principais eventos do ano anterior, apresentando-o à Assembléia Geral Ordinária;</p>
+            <p class="item upper-roman"><span>V</span>. Contratar funcionários ou auxiliares especializados, fixando seus vencimentos, podendo licenciá-los, suspendê-los ou demiti-los;</p>
+            <p class="item upper-roman"><span>VI</span>. Firmar, em nome da OKF Brasil, o aceite de doações, convênios, termos de parceria, termos de compromisso, contratos, títulos e acordos de qualquer natureza.</p>
             <p class="par"><span>§ único</span> – Compete ao Diretor Adjunto substituir legalmente o Diretor Executivo, em suas faltas e impedimentos, assumindo o cargo em caso de vacância.</p>
           </div>
           <div class="art" id="art32">
-            <p class="art-caput"><span>Artigo 32º</span> – A outorga de procurações em nome da OKF Brasil ficará condicionada à prévia autorização, por escrito, do Presidente do Conselho Deliberativo ou de mais da metade dos Conselheiros Deliberativos, manifestada em reunião, declaração, carta, fac-símile, correio eletrônico, telegrama ou qualquer outra forma escrita. As procurações outorgadas em nome da OKF Brasil serão sempre por 02 (dois) Diretores, ou por 01 (um) e o Presidente do Conselho Deliberativo, e deverão especificar os poderes conferidos e, com exceção daquelas para fins judiciais, terão um período de validade limitado.</p>
+            <p class="caput"><span>Artigo 32º</span> – A outorga de procurações em nome da OKF Brasil ficará condicionada à prévia autorização, por escrito, do Presidente do Conselho Deliberativo ou de mais da metade dos Conselheiros Deliberativos, manifestada em reunião, declaração, carta, fac-símile, correio eletrônico, telegrama ou qualquer outra forma escrita. As procurações outorgadas em nome da OKF Brasil serão sempre por 02 (dois) Diretores, ou por 01 (um) e o Presidente do Conselho Deliberativo, e deverão especificar os poderes conferidos e, com exceção daquelas para fins judiciais, terão um período de validade limitado.</p>
           </div>
         </section>
         <!--subsec-->
         <section id="sec4.4">
           <h3><span>Seção IV</span> – Do Conselho Fiscal</h3>
           <div class="art" id="art33">
-            <p class="art-caput"><span>Artigo 33º</span> – O Conselho Fiscal é um órgão colegiado, eleito pela Assembléia Geral, responsável pela fiscalização da Diretoria Executiva, sendo composto por 02 (dois) membros e 01 (um) suplente associados ou não associados, para mandato de 03 (três) anos, permitida reconduções sucessivas e ininterruptas.</p>
+            <p class="caput"><span>Artigo 33º</span> – O Conselho Fiscal é um órgão colegiado, eleito pela Assembléia Geral, responsável pela fiscalização da Diretoria Executiva, sendo composto por 02 (dois) membros e 01 (um) suplente associados ou não associados, para mandato de 03 (três) anos, permitida reconduções sucessivas e ininterruptas.</p>
             <p class="par"><span>§ único</span> – É vedado aos Conselheiros Fiscais acumularem os cargos de Conselheiro Fiscal e Conselheiro Deliberativo ou Conselheiro Fiscal e Diretor. A eleição para o cargo de Conselheiro Fiscal implica a perda automática do cargo de Conselheiro Deliberativo ou Diretor.</p>
           </div>
           <div class="art" id="art34">
-            <p class="art-caput"><span>Artigo 34º</span> – O Conselho Fiscal reunir-se-á ao menos uma vez por ano, sempre antes da Assembléia Geral Ordinária e, a qualquer tempo, quando convocado pelo Conselho Deliberativo ou por quaisquer de seus membros.</p>
+            <p class="caput"><span>Artigo 34º</span> – O Conselho Fiscal reunir-se-á ao menos uma vez por ano, sempre antes da Assembléia Geral Ordinária e, a qualquer tempo, quando convocado pelo Conselho Deliberativo ou por quaisquer de seus membros.</p>
           </div>
           <div class="art" id="art35">
-            <p class="art-caput"><span>Artigo 35º</span> – Ao Conselho Fiscal compete:</p>
+            <p class="caput"><span>Artigo 35º</span> – Ao Conselho Fiscal compete:</p>
             <p class="item upper-roman"><span>I.</span> opinar sobre relatórios de desempenho financeiro e contábil e sobre operações patrimoniais realizadas, emitindo os competentes pareceres;</p>
             <p class="item upper-roman"><span>II.</span> zelar pela observância dos princípios fundamentais de contabilidade e das Normas Brasileiras de Contabilidade, na prestação de contas e atos correlatos da OKF Brasil;</p>
             <p class="item upper-roman"><span>III.</span> acompanhar o trabalho de eventuais auditores externos independentes.</p>
           </div>
           <div class="art" id="art36">
-            <p class="art-caput"><span>Artigo 36º</span> – Os membros do Conselho Fiscal não serão remunerados.</p>
+            <p class="caput"><span>Artigo 36º</span> – Os membros do Conselho Fiscal não serão remunerados.</p>
           </div>
         </section>
         <!--subsec-->
@@ -267,10 +278,10 @@
       <section id="sec5">
         <h2><span>Capítulo V</span> – Da Publicidade dos Atos</h2>
         <div class="art" id="art37">
-          <p class="art-caput"><span>Artigo 37º</span> – A OKF Brasil dará publicidade por qualquer meio eficaz, principalmente veiculação em sítio web, no encerramento do exercício fiscal ao relatório de atividades e das demonstrações financeiras da Entidade, incluindo-se as certidões negativas de débitos com o INSS e o FGTS, colocando-os à disposição para exame de qualquer cidadão.</p>
+          <p class="caput"><span>Artigo 37º</span> – A OKF Brasil dará publicidade por qualquer meio eficaz, principalmente veiculação em sítio web, no encerramento do exercício fiscal ao relatório de atividades e das demonstrações financeiras da Entidade, incluindo-se as certidões negativas de débitos com o INSS e o FGTS, colocando-os à disposição para exame de qualquer cidadão.</p>
         </div>
         <div class="art" id="art38">
-          <p class="art-caput"><span>Artigo 38º</span> – Para assegurar a transparência na aplicação dos recursos deverá:</p>
+          <p class="caput"><span>Artigo 38º</span> – Para assegurar a transparência na aplicação dos recursos deverá:</p>
           <p class="item upper-roman"><span>§ Iº</span> – permitir a realização de auditoria, inclusive por auditores externos independentes se for o caso, da aplicação dos eventuais recursos objeto do termo de parceria conforme previsto em regulamento;</p>
           <p class="item upper-roman"><span>§ IIº</span> – prestar contas de todos os recursos e bens de origem pública recebidos pela OKF Brasil, que será feita conforme determina o parágrafo único do artigo 70 da Constituição Federal.</p>
         </div>
@@ -278,10 +289,10 @@
       <section id="sec6">
         <h2><span>Capítulo VI</span> – Do Patrimônio</h2>
         <div class="art" id="art39">
-          <p class="art-caput"><span>Artigo 39º</span> – O patrimônio da OKF Brasil será constituído pela dotação inicial dos Associados e contribuintes e pelos bens móveis e imóveis e direitos que venham a ser acrescentados por meio de doações, legados, aplicação de receitas e outras fontes.</p>
+          <p class="caput"><span>Artigo 39º</span> – O patrimônio da OKF Brasil será constituído pela dotação inicial dos Associados e contribuintes e pelos bens móveis e imóveis e direitos que venham a ser acrescentados por meio de doações, legados, aplicação de receitas e outras fontes.</p>
         </div>
         <div class="art" id="art40">
-          <p class="art-caput"><span>Artigo 40º</span> – Constituem receitas ordinárias:</p>
+          <p class="caput"><span>Artigo 40º</span> – Constituem receitas ordinárias:</p>
           <p class="item upper-roman"><span>I.</span> a contribuição das pessoas físicas e jurídicas associadas;</p>
           <p class="item upper-roman"><span>II.</span> a renda patrimonial;</p>
           <p class="item upper-roman"><span>III.</span> contribuições voluntárias, doações, as subvenções e dotações;</p>
@@ -289,30 +300,30 @@
           <p class="item upper-roman"><span>V.</span> outras receitas, inclusive oriundas da exploração de atividade econômica cujo resultado integral será necessariamente revertido a OKF Brasil para ser aplicado nas suas finalidades.</p>
         </div>
         <div class="art" id="art41">
-          <p class="art-caput"><span>Artigo 41º</span> – O Conselho Deliberativo poderá rejeitar as doações e legados que contenham encargos ou gravames de qualquer espécie, ou, ainda, que sejam contrários aos objetivos da OKF Brasil, à sua natureza ou à lei.</p>
+          <p class="caput"><span>Artigo 41º</span> – O Conselho Deliberativo poderá rejeitar as doações e legados que contenham encargos ou gravames de qualquer espécie, ou, ainda, que sejam contrários aos objetivos da OKF Brasil, à sua natureza ou à lei.</p>
         </div>
         <div class="art" id="art42">
-          <p class="art-caput"><span>Artigo 42º</span> – Todo patrimônio e receitas da OKF Brasil deverão ser destinados aos objetivos a que destina a Entidade, ressalvados os gastos despendidos e bens necessários a seu funcionamento.</p>
+          <p class="caput"><span>Artigo 42º</span> – Todo patrimônio e receitas da OKF Brasil deverão ser destinados aos objetivos a que destina a Entidade, ressalvados os gastos despendidos e bens necessários a seu funcionamento.</p>
         </div>
       </section>
       <section id="sec7">
         <h2><span>Capítulo VII</span> – Das Disposições Finais</h2>
         <div class="art" id="art43">
-          <p class="art-caput"><span>Artigo 43º</span> – A OKF Brasil é constituída por prazo indeterminado, competindo à Assembléia Geral decidir, nos termos deste estatuto sobre sua eventual extinção.</p>
+          <p class="caput"><span>Artigo 43º</span> – A OKF Brasil é constituída por prazo indeterminado, competindo à Assembléia Geral decidir, nos termos deste estatuto sobre sua eventual extinção.</p>
           <p class="par"><span>§ 1º</span> – Previsão de que, em caso de dissolução da OKF Brasil, o respectivo patrimônio liquido será transferido a outra pessoa jurídica qualificada nos termos da Lei nº 9.790/99, preferencialmente que tenha o mesmo objeto social da extinta.</p>
           <p class="par"><span>§ 2º</span> – Na hipótese da OKF Brasil perder a qualificação instituída na Lei 9790/99, o respectivo acervo patrimonial disponível, adquirido com recursos públicos durante o período em que perdurou aquela qualificação, será transferido a outra pessoa jurídica qualificada nos termos da Lei 9790/99, preferencialmente que tenha o mesmo objeto social.</p>
         </div>
         <div class="art" id="art44">
-          <p class="art-caput"><span>Artigo 44º</span> – Os associados não respondem, nem mesmo subsidiariamente, pelas obrigações sociais.</p>
+          <p class="caput"><span>Artigo 44º</span> – Os associados não respondem, nem mesmo subsidiariamente, pelas obrigações sociais.</p>
         </div>
         <div class="art" id="art45">
-          <p class="art-caput"><span>Artigo 45º</span> – O exercício social iniciará em 1º de janeiro e terminará em 31 de dezembro de cada ano, com prazo de até três meses para ser lançado o balanço anual.</p>
+          <p class="caput"><span>Artigo 45º</span> – O exercício social iniciará em 1º de janeiro e terminará em 31 de dezembro de cada ano, com prazo de até três meses para ser lançado o balanço anual.</p>
         </div>
         <div class="art" id="art46">
-          <p class="art-caput"><span>Artigo 46º</span> – Os casos omissos ou duvidosos no presente estatuto serão resolvidos pela Diretoria com recurso para o Conselho Deliberativo.</p>
+          <p class="caput"><span>Artigo 46º</span> – Os casos omissos ou duvidosos no presente estatuto serão resolvidos pela Diretoria com recurso para o Conselho Deliberativo.</p>
         </div>
       </section>
     </article>
   </body>
 </html>
-debug222=html5-lex0
+

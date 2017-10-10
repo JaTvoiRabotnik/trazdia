@@ -15,7 +15,6 @@ Faker==0.7.11
 gunicorn==19.7.1
 ipaddress==1.0.18
 kombu==4.0.2
-logging==0.4.9.6
 lxml==3.7.3
 packaging==16.8
 parse==1.8.0
